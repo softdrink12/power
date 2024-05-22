@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *,
+        *:after,
+        *:before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrap {
+            height: 55%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .parent {
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/9b22e6f1444b5ae785f3a267/pexelsphoto3326103.jpeg")
+        }
+
+        .c1 {
+            /* border-bottom: 3px groove red; */
+            height: 605px;
+        }
+
+        input[type=search] {
+            padding: 6px;
+            border: 1px groove #c0c0c0;
+            /* opacity: 0.3; */
+            font-size: 13px;
+            width: 150px;
+
+            background: transparent;
+        }
+
+        form {
+            padding-top: 30px;
+        }
+
+        .parent2 {
+            /* border: 1px solid red; */
+            /* width: 1260px; */
+            width: 100%;
+            height: 900px;
+
+            display: inline-block;
+        }
+
+        .c2 {
+            border-bottom: 1px groove #c0c0c0;
+            height: 20px;
+        }
+
+        .c3 {
+            /* border: 1px solid red; */
+            font-size: 30px;
+
+            margin-top: 200px;
+            background-color: white;
+            width: 340px;
+            height: 50px;
+
+            line-height: 50px;
+        }
+
+        .c4 {
+            /* border: 1px solid red; */
+            font-size: 30px;
+
+            background-color: #f1c50e;
+            width: 240px;
+            height: 50px;
+
+            line-height: 50px;
+
+            position: absolute;
+            top: 320px;
+        }
+
+        div.c5,
+        .c6 {
+            /* border: 1px solid red; */
+            width: 400px;
+            height: 500px;
+            /* margin-top:100px */
+            /* padding-top:100px */
+
+            display: inline-block;
+        }
+
+        div.c6 {
+            background-color: #f1c50e;
+            margin-left: 50px;
+
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        div.c5 {
+            /* margin-left: 80px; */
+            margin-top: 50px;
+
+            vertical-align: top;
+        }
+
+        div.cc1 {
+            border: 4px solid black;
+            width: 350px;
+            height: 250px;
+
+            margin: 150px auto;
+        }
+
+        div.cc2 {
+            /* border: 1px solid red; */
+            width: 300px;
+            height: 150px;
+
+            margin: 30px auto;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        div.cc3 {
+            /* border: 1px solid red; */
+
+            width: 400px;
+            height: 500px;
+
+            margin: 50px 0 0 50px;
+        }
+
+        img.cc4 {
+            width: 300px;
+            height: 400px;
+        }
+
+        div.parent3 {
+            /* border: 1px solid red; */
+
+            width: 1250px;
+            height: 300px;
+
+            /* vertical-align: bottom; */
+
+            /* margin-top: 150px; */
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        div.parent3>div {
+            /* border: 1px solid red; */
+            width: 290px;
+            height: 200px;
+            /* margin-top: 40px; */
+            /* margin-right: 15px; */
+            /* margin: auto; */
+
+            display: inline-block;
+        }
+
+        .no1 {
+            background-image: url("//images01.nicepage.com/a2/fc/a2fc4ef890f44fa0a9bb7787ce17008d.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            width: 290px;
+            height: 200px;
+        }
+
+        .no3 {
+            background-image: url("//images01.nicepage.com/62/43/6243854162c536333ab218a58996077f.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            width: 290px;
+            height: 200px;
+        }
+
+        .no2,
+        .no4 {
+            border: 4px solid black;
+        }
+
+        .cc5,
+        .cc6 {
+            /* border: 1px solid black; */
+
+            width: 250px;
+            height: 170px;
+            margin: 10px auto;
+        }
+
+        h4 {
+            font-size: 20px;
+            padding-top: 20px;
+        }
+
+        .wrap2 {
+            height: 65%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .parent4 {
+            /* border: 1px solid red; */
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/992eb4a786e9521ea39ea995/pexelsphoto940302.jpeg");
+
+        }
+
+        .cc7 {
+            /* border: 1px solid black; */
+
+            width: 850px;
+            height: 100px;
+            margin-top: 150px;
+        }
+
+        .cc8 {
+            border: 1px solid white;
+
+            width: 100%;
+            height: 630px;
+        }
+
+        p {
+            font-size: 26px;
+        }
+
+        span {
+            font-size: 12px;
+        }
+
+        .plate {
+            /* border: 1px solid red; */
+
+            width: 350px;
+            height: 300px;
+
+            display: inline-block;
+
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/b997f5453a025796b7e011f6/pexelsphoto3659862.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            margin-left: 50px;
+        }
+
+        .parent5 {
+            /* border: 1px solid red; */
+
+            width: 100%;
+            height: 600px;
+        }
+
+        .plate2 {
+            /* border: 1px solid red; */
+
+            width: 350px;
+            height: 300px;
+
+            display: inline-block;
+
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/89f0b40da8d05b4088f24d63/pexelsphoto704569.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            margin-left: 10px;
+        }
+
+        .cc9 {
+            /* border: 1px solid red; */
+
+            width: 100%;
+            height: 150px;
+            background-color: #f1c50e;
+
+            position: absolute;
+            top: 2100px;
+
+            z-index: -99;
+        }
+
+        .cc10 {
+            /* border: 1px solid red; */
+
+            width: 550px;
+            height: 200px;
+            margin: 50px auto;
+
+            text-align: center;
+        }
+
+        .more {
+            border: 1px solid black;
+            font-size: 10px;
+
+            width: 110px;
+            height: 30px;
+
+            background-color: black;
+            color: white;
+        }
+
+        .parent6 {
+            /* border: 1px solid red; */
+
+            width: 100%;
+            height: 450px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .parent6>div {
+            /* border: 1px solid red; */
+
+            width: 400px;
+            height: 350px;
+
+            display: inline-block;
+        }
+
+        .to1 {
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/e5a2d57a68bc5de4b52746a3/pexelsphoto3756523.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .to3 {
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/fcee991985085d4093370a3d/pexelsphoto3756525.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .to2 {
+            border: 4px solid black;
+        }
+
+        .cc11 {
+            /* border: 1px solid red; */
+
+            width: 350px;
+            height: 250px;
+
+            margin: 45px auto;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .parent7 {
+            /* border: 1px solid red; */
+
+            width: 100%;
+            height: 550px;
+        }
+
+        .parent8 {
+            background-image: url("//images03.nicepage.com/a1389d7bc73adea1e1c1fb7e/3cb19967a4645debbcf2c90a/pexelsphoto3831823.jpeg")
+        }
+
+        .wrap3 {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .cc12 {
+            /* border: 1px solid red; */
+            width: 300px;
+            height: 50px;
+
+            text-align: center;
+
+            position: absolute;
+            top: 3550px;
+            left: 500px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wrap parent">
+        <div class="c1">
+            <form>
+                <input type="search" name="search" value placeholder="&nbsp;search">
+            </form>
+
+            <div class="c2"></div>
+
+            <div class="c3">
+                <strong>YOUR FAVORITE FOOD</strong>
+            </div>
+            <div class="c4">
+                <strong>MAKE IT GOOD</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="parent2">
+        <div class="c5">
+            <div class="cc1">
+                <div class="cc2">
+                    <h1>Cafe Food Menu</h1><br>
+                    All of our food is prepared by our team of trained kitchen staff from the sealed glass kitchen where
+                    you can see your food being made, without risk of little paws getting involved.
+                </div>
+            </div>
+        </div>
+        <div class="c6">
+            <div class="cc3">
+                <img class=cc4
+                    src="//images03.nicepage.com/c461c07a441a5d220e8feb1a/e07fd7349a87546e950fb324/photo1564305564045c62d40dd0123.jpg">
+            </div>
+        </div>
+        <div class="parent3">
+            <div class="no1"></div>
+            <div class="no2">
+                <div class="cc5">
+                    <h4>Have a healthy afternoon snack</h4><br>
+                    The majority of people in the working world are likely familiar with the mid-afternoon slump.
+                </div>
+            </div>
+            <div class="no3"></div>
+            <div class="no4">
+                <div class="cc6">
+                    <h4>Include lots of fibre in your diet</h4><br>
+                    Fibre is known to help aid with digestion. However, that’s not its only benefit.
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="wrap2 parent4">
+        <div class="cc8">
+            <div class="cc7">
+                <p>Time to Make a Difference</p><br>
+                <span>Phasellus scelerisque arcu vestibulum tempor tempor. Donec vulputate leo et metus hendrerit
+                    bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In scelerisque nisl nec
+                    ornare euismod.</span>
+            </div>
+        </div>
+
+        <div class="parent5">
+            <div class="plate"></div>
+            <div class="plate2"></div>
+            <div class="cc9"></div>
+            <div class="cc10">
+                <p>Which is the tastiest food?</p><br>
+                <span>
+                    The world's most delicious food is not Massaman curry, as we suggested, but a meaty, spicy, gingery
+                    dish from west Sumatra. "There is no love sincerer than the love of food," George Bernard Shaw said.
+                    Judging by the number of amazing dishes out there, he was right.
+                </span><BR><br>
+                <input class="more" type="button" value="READ MORE">
+            </div>
+        </div>
+
+        <div class="parent6">
+            <div class="to1"></div>
+            <div class="to2">
+                <div class="cc11">
+                    <p>Restaurant</p>
+                    ORGANIC FARM<br>"<br>
+                    <span>
+                        We bring the season’s best mix of organic produce and hand-crafted farm products conveniently to
+                        your door by growing and partnering with local farms and artisans in your area.
+                    </span><br><BR>
+                    -LOO HUDSON
+                </div>
+            </div>
+            <div class="to3"></div>
+        </div>
+
+        <div class="parent7">
+            <div class="wrap3 parent8">
+                <div class="cc12">
+                    <p>Enjoy Morning Time</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="parent8">
+
+        </div>
+</body>
+
+</html>
