@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #cursor {
+            width: 50px;
+            height: 53px;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: none;
+        }
+
+        #catTower {
+            border: 1px solid red;
+            width: 300px;
+            height: 300px;
+            margin: 50px;
+        }
+    </style>
+
+    <script>
+
+        function btn2click() {
+            document.querySelector("#console").innerHTML = '버튼2 클릭<br>';
+        }
+
+        // let btn1 = document.querySelector("#btn1");
+        // console.log('btn1 :', btn1)
+
+        // window : 브라우저를 뜻함
+        // window.addEventListener("load", function() {
+        //     let btn1 = document.querySelector("#btn1");
+        //     console.log('btn1 :', btn1);
+        // })
+
+        window.onload = function () {
+            let btn1 = document.querySelector("#btn1");
+            console.log('btn1 :', btn1);
+
+            btn1.onclick = function () {
+                console.log('버튼1 클릭');
+                document.querySelector("#console").innerHTML = '버튼1 클릭<br>';
+            }
+            // onclick은 click 이벤트가 발생했을 때 실행할 함수를 가지고 있는
+            // "변수"라서 딱 하나의 함수만 지정할 수 있다 
+            btn1.onclick = function () {
+                document.querySelector("#console").innerHTML = '버튼1 클릭 클릭<br>';
+            }
+
+            let btn3 = document.querySelector("#btn3");
+            // addEventListener
+            // 첫번째 전달인자 : 이벤트 종류
+            // 두번째 전달인자 : 실행할 함수 
+            btn3.addEventListener('click', function () {
+                document.querySelector("#console").innerHTML = '버튼3 클릭<br>';
+            })
+
+            function btn3click() {
+                document.querySelector("#console").innerHTML += '버튼3 클릭 클릭 클릭<br>';
+            }
+            // 여러번 추가할 수 있음, 모두 동작함 
+            btn3.addEventListener('click', btn3click);
+            // 해당 이벤트 제거 
+            // 단, 익명함수였다면 제거 불가능 
+            // btn3.removeEventListener('click', btn3click);
+
+            window.addEventListener('scroll', function () {
+                console.log('스크롤 변경')
+                console.log(document.documentElement.scrollTop)
+            })
+
+            let id = document.querySelector('#id');
+            // id.addEventListener('keydown', function() {
+            //     console.log('keydown');
+            // })
+            id.addEventListener('keyup', function (event) {
+                console.log('keyup', event.keyCode);
+                // 엔터키 번호 13
+                if (event.keyCode == 13) {
+                    document.querySelector('#pw').focus();
+                }
+            })
+
+            let pw = document.querySelector('#pw')
+
+            document.querySelector('#pw').addEventListener('keyup', function (event) {
+                console.log('keyup', event.keyCode);
+                // 엔터키 번호 13
+                if (event.keyCode == 13) {
+                    document.querySelector('#pw').focus();
+                }
+            })
+
+            document.querySelector('#pw').addEventListener('keyup', function (event) {
+                console.log('keyup', event.keyCode);
+                // 엔터키 번호 13
+                if (event.keyCode == 13) {
+                    document.querySelector('#login').click();
+                }
+            })
+
+            document.querySelector('#login').addEventListener('click', function (event) {
+                if (id.value == "admin" && pw.value == "1234") {
+                    document.querySelector("#console").innerHTML = "로그인 성공"
+                } else {
+                    document.querySelector("#console").innerHTML = "아이디 또는 비밀번호를 확인해주세요"
+                } if (id.value == "" || pw.value == "") {
+                    // document.querySelector("#console").innerHTML = "아이디 또는 비밀번호 입력은 필수입니다"
+
+                    document.querySelector("#msg").innerText = "아이디 또는 비밀번호 입력은 필수입니다"
+                    document.querySelector("#msg").style.display = 'block';
+                }
+
+                console.log('로그인 버튼 클릭')
+                document.querySelector('#id').value;
+                console.log("아이디 : ", id);
+                // document.querySelector('#id').value = "admin";
+                document.querySelector('#pw').value;
+                console.log("비번 : ", pw);
+
+            })
+
+            /*
+                로그인 버튼을 눌렀을 때
+                id는 admin
+                password는 1234인 경우
+                "로그인 되었습니다" 출력
+                그 외에는 "아이디 또는 비밀번호를 확인하세요" 출력
+
+                id, password가 아무것도 안적힌 경우 "..는 필수입니다" 출력
+            */
+
+            // 앞에 아무것도 안쓰면 브라우저 전체에 적용되는 이벤트 
+            addEventListener('mousemove', function (evt) {
+                // console.log('마우스 움직임');
+            })
+
+            let catTower = document.querySelector("#catTower");
+            catTower.addEventListener('mousemove', function (evt) {
+                // console.log('마우스 움직임');
+                // 현재 화면에 보이는 영역 기준 x, y
+
+                // 스크롤이 내려 왔더라도 그냥 지금 보이는 왼쪽 위 기준 
+                // console.log(evt.x, evt.clientx);
+
+                // 스크롤에 관계없이 문서 좌상단 기준
+                // console.log(evt.pageX);
+
+                // 이벤트가 적용된 대상의 좌상단 기준
+                // console.log(evt.offsetX);
+
+                /*
+                    event.pageX를 left
+                    event.pageY를 top
+                    display를 보이게 해주기 
+                */
+
+                document.querySelector("#cursor");
+                cursor.style.left = evt.pageX + 'px'
+                cursor.style.top = evt.pageY + 'px'
+                cursor.style.display = "block";
+            })
+
+            // 이벤트명 : focus, blur 
+            // #id에 적용해서 
+            // focus : "아이디에 포커스 맞춰짐"
+            // blur : "아이디에 포커스 잃음"
+
+            let newId = document.querySelector("#id");
+            newId.addEventListener("focus", function () {
+                console.log("아이디에 포커스 맞춰짐")
+            })
+            newId.addEventListener("blur", function () {
+                console.log("아이디에 포커스 잃음")
+            })
+
+            // this : 그냥 쓰일 때는 window 객체를 가지고 있다 
+            console.log(this);
+
+            document.querySelector("#parent").addEventListener("click", function (event) {
+
+                // event.target : 이벤트가 발생된 DOM을 뜻함
+                // 이벤트가 발생된 대상 
+                console.log('event.target :', event.target);
+
+                // event.currentTarget : 이벤트가 적용된 DOM을 뜻함
+                // 이벤트가 발생된 부모를 찾을 수 있음
+                console.log('event.currentTarget :', event.currentTarget);
+
+                // this === event.currentTarget
+                // 이벤트가 발생된 부모를 찾을 수 있음
+                // addEventListener 상태일 때는 더이상 window가 아님 
+                console.log('this :', this);
+            });
+            // true를 적용하면 capturing이 적용되기 때문에 부모가 먼저 동작
+            // 반대로 false나 인자를 쓰지 않는다면 bubbling이 적용되어 자식요소가 먼저 동작 
+
+            document.querySelector("#child1").addEventListener("click", function (event) {
+
+                // stopPropagation : 부모로 전달되는 이벤트를 중지한다 
+                event.stopPropagation();
+                console.log('자식1 클릭')
+            });
+
+            document.querySelector("#form").addEventListener("submit", function (event) {
+
+                // preventDefault : 원래 html 고유 기능을 없애줌
+                event.preventDefault();
+
+                let value = document.querySelector("#keyword").value;
+                console.log(value, value.length);
+                if(value.length < 2) {
+                    console.log('두 글자 이상 입력')
+                } else {
+                    console.log('naver 검색')
+
+                    document.querySelector("#form").submit();
+                }
+            });
+
+
+        }
+
+
+
+    </script>
+
+
+    </style>
+</head>
+
+<body style="height:2000px">
+    <button type="button" id="btn1">버튼1</button>
+    <button type="button" id="btn2" onclick="btn2click();alert(123)">버튼2</button>
+    <button type="button" id="btn3">버튼3</button>
+
+    <div>
+        <input type="text" placeholder="아이디" id="id"><br>
+        <input type="password" placeholder="비밀번호" id="pw"><br>
+        <div id="msg" style="display: none; color: red"></div>
+        <input type="button" style="width:177px" value="로그인" id="login">
+    </div>
+
+    <div id="console"></div>
+
+    <img id="cursor"
+        src="https://cdn.discordapp.com/attachments/1237222207395205138/1250271715414773780/image.png?ex=666a55c5&is=66690445&hm=db0a7d03382cf6c77bf7b73d4ebf377622d4bdcb293fa8f51512be88965cb450&">
+    <div id="catTower">
+
+    </div>
+
+    <div id="parent">
+        부모
+        <div id="child1">자식 1</div>
+        <div id="child2">자식 2</div>
+    </div>
+
+    <form id="form" action="http://search.naver.com/search.naver">
+        <input id="keyword" type="text" name="query">
+        <input type="submit" value="네이버 검색">
+    </form>
+
+</body>
+
+</html>

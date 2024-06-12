@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+
+<style>
+    fieldset {color:green}
+</style>
+
+<body>
+    <!-- action: 보낼곳, 안쓰면 지금 페이지 
+         method: 보내는 방식 get, post, 안쓰면 get         
+    -->
+    <form action="" method="get">
+        button: <input type="button" value="버튼"> <br>
+        checkbox: <input type="checkbox" checked="checked"> 김밥 <input type="checkbox"> 라면 <br>
+        color,date: <input type="color"> <input type="date"> <br>
+        <!-- 컬러, 데이트 중요하지 않음 -->
+        file: <input type="file"> <br>
+        hidden: <input type="hidden" value="500"> <br>
+        number: <input type="number"> <br>
+        password: <input type="password" name="pw"> <br>
+        radio: <input type="radio" name="gender" value="male"> 남자
+        <input type="radio" name="gender"> 여자
+        <input type="radio" name="gender" checked="checked"> 비공개 <br>
+        text: <input type="text"> <br>
+        reset: <input type="reset"> <input type="reset" value="다시작성"> <br>
+        submit: <input type="submit"> <input type="submit" value="가입">
+    </form>
+
+    <hr>
+    <form action="https://m.search.naver.com/search.naver" method="get" target="_blank">
+        <input type="text" name="query" placeholder="검색어를 입력해주세요" title="검색어를 입력해주세요">
+        <input type="submit" value="네이버 검색">
+    </form>
+
+    <form action="https://www.google.com/search" method="get">
+        <input type="text" name="query" value="휴먼교육센터" readonly="readonly">
+        <input type="submit" value="구글 검색">
+    </form>
+    <!-- form 안에 form이 있으면 동작이 이상해진다 -->
+
+    <hr>
+    <form>
+        <select name="dinner" disabled="disabled">
+            <option value="1">일식</option>
+            <option value="2">한식</option>
+            <option value="3">양식</option>
+            <option value="4" selected="selected">분식</option>
+        </select>
+        <input type="submit" value="선택">
+    </form>
+
+
+    <form>
+        <textarea name="textarea" rows="10" cols="30" readonly>안녕</textarea>
+        <input type="submit" value="선택">
+    </form>
+    <br>
+
+    <from>
+        <fieldset>
+            <legend>login</legend>
+            username <input type="text" name="username"> 
+            <br>
+            password <input type="password" name="password">
+        </fieldset>
+    </from>
+    <hr>
+
+    <form action="https://comic.naver.com/index" target="_blank">
+        <input type="submit" value="웹툰">
+    </form>
+    <br>
+
+<form action="https://comic.naver.com/index">
+    <input type="image" src="https://image-comic.pstatic.net/webtoon/823663/thumbnail/thumbnail_IMAG21_a6c2cab5-036e-4747-9a56-aafb0ae3b6ff.jpg" alt="submit" width="90" height="90">
+</form>
+<hr>
+
+    <h1>
+        안녕하세요.
+    </h1>
+    <hr>
+
+    <h3>
+        성별을 선택해주세요.
+    </h3>
+    <input type="radio" name="gender"> 남자 <br>
+    <input type="radio" name="gender"> 여자
+
+</body>
+
+</html>

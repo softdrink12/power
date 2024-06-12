@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 15와 20이 주어졌을 때
+        // 세번째 값 17이 -1 사이에 있는지 확인 
+
+        let x1 = 15;
+        let x2 = 20;
+        // let x3 = 17;
+        let x3 = prompt("값 입력");
+
+        if(x3 >= x1 && x3 <= x2) {
+            console.log(`${x3}는 ${x1}과 ${x2}사이에 있습니다`)
+        } else {
+            console.log(`${x3}는 ${x1}과 ${x2}사이에 없습니다`)
+
+        };
+
+        // 좌 상단 모서리 좌표 
+        let x41 = 10;
+        let y41 = 20;
+
+        // 우 하단 모서리 좌표 
+        let x42 = 90;
+        let y42 = 100;
+
+        let x43 = 0,
+            y43 = 0;
+
+        
+
+        // 문제.2    
+        // 온도를 입력 받습니다.
+        // 입력받은 온도에 따라서 
+        // 1. '영하입니다, 영상입니다' 를 표시
+        // 2. -3을 입력한 경우 '영하 3도 입니다' 출력 
+        // 3. 아까 입력 받은 걸 어제 기온이라고 하고 (-3) <- 받은온도
+        // 이번에 입력받은 온도를 이용해서 (2) <- 받은 온도 
+        // '어제보다 5도 높습니다' 출력 
+
+        // 문제.3
+        // 두 수를 입력받고 ( 또는 하드코딩 )
+        // a와 b에 저장한 후
+        // 둘 중에 큰 값 출력 
+        
+        // 문제.4
+        // 조금 어려운 문제
+        // 입력받은 숫자가 (또는 하드코딩한 값)가
+        // 10의 자리와 1의 자리가 같은지 판단
+        // 22 : 같음
+        // 23 : 다름 
+
+        // 125라는 값이 주어졌을 때 
+        // '입력한 수는 100보다 큰 수, 양수, 홀수'
+        
+        // 문제.2
+        let ice = prompt("온도를 입력해주세요");
+        if (ice < 0) {
+            console.log("영하",ice,"도 입니다")
+            alert ("영하"+ice+"도 입니다")
+        } else { 
+            console.log("영상",ice,"도 입니다")
+            alert ("영상"+ice+"도 입니다")
+        };
+
+        // 문제.3
+        let a = prompt("숫자를 입력해주세요");
+        let b = prompt("숫자를 입력해주세요");
+        if ( a > b) {
+            alert(a)
+        } else {
+            alert(b)
+        };
+
+        // 문제.4
+        let c = prompt (" 숫자를 적어주세요 ")
+        
+        if (c % 10 == (parseInt (c/10))) {
+            alert("같음")
+        } else {
+            alert("다름")
+        }
+
+        // 문제.5
+        let d = prompt ("숫자를 적어주세용")
+        if (d<=100) {
+            alert("100보다 작은 수 입니다")
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

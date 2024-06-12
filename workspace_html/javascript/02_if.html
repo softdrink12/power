@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 15와 20이 주어졌을 때
+        // 세번째 값 17이 -1 사이에 있는지 확인 
+
+        let x1 = 15;
+        let x2 = 20;
+        // let x3 = 17;
+        let x3 = prompt("값 입력");
+
+        if (x3 >= x1 && x3 <= x2) {
+            console.log(`${x3}는 ${x1}과 ${x2}사이에 있습니다`)
+        } else {
+            console.log(`${x3}는 ${x1}과 ${x2}사이에 없습니다`)
+
+        };
+
+        // // 좌 상단 모서리 좌표 
+        // let x41 = 10;
+        // let y41 = 20;
+
+        // // 우 하단 모서리 좌표 
+        // let x42 = 90;
+        // let y42 = 100;
+
+        // let x43 = 0,
+        //     y43 = 0;
+
+
+
+        // 문제.2    
+        // 온도를 입력 받습니다.
+        // 입력받은 온도에 따라서 
+        // 1. '영하입니다, 영상입니다' 를 표시
+        // 2. -3을 입력한 경우 '영하 3도 입니다' 출력 
+        // 3. 아까 입력 받은 걸 어제 기온이라고 하고 (-3) <- 받은온도
+        // 이번에 입력받은 온도를 이용해서 (2) <- 받은 온도 
+        // '어제보다 5도 높습니다' 출력 
+
+        // 문제.3
+        // 두 수를 입력받고 ( 또는 하드코딩 )
+        // a와 b에 저장한 후
+        // 둘 중에 큰 값 출력 
+
+        // 문제.4
+        // 조금 어려운 문제
+        // 입력받은 숫자가 (또는 하드코딩한 값)가
+        // 10의 자리와 1의 자리가 같은지 판단
+        // 22 : 같음
+        // 23 : 다름 
+
+        // 125라는 값이 주어졌을 때 
+        // '입력한 수는 100보다 큰 수, 양수, 홀수'
+
+        // 문제.2
+        let temp = prompt("온도 입력");
+        temp = Number(temp);
+        if (temp > 0) {
+            console.log('영상입니다')
+        } else {
+            console.log('영하입니다')
+        }
+        if (temp > 0) {
+            console.log('영상 ' + temp + '도 입니다')
+        } else {
+            console.log('영하 ' + (temp * -1) + '도 입니다')
+        };
+        let temp2 = prompt("두번째 온도 입력");
+        temp2 = Number(temp2);
+        // 3, 5 : 2도 높습니다 -> 3 - 5 == -2
+        // 5, 1 : 4도 낮습니다 -> 5 - 1 == 4
+        // -3, 2 : 5도 높습니다 -> -3 - 2 == -5
+        // -4, -8 : 4도 낮습니다 -> -4 - (-8) == 4
+        let diff = temp - temp2;
+        if (diff > 0) {
+            console.log(diff + '도 낮습니다')
+        } else if (diff == 0) {
+            console.log('같습니다')
+        } else if (diff < 0) {
+            console.log((diff * -1) + '도 높습니다')
+        }
+
+        // // 문제.4
+        // let num = 22; 
+        // let num10 = num / 10;
+        // num10 = praseInt(num10);
+        // console.log("num10 : " + num10);
+        // let num1 = num % 10;
+        // console.log("num1 : ", num1);
+        // if ( num10 == num1) {
+        //     console.log('같음')
+        // } else { 
+        //     console.log('다름')
+        // };
+
+        // 문제.5 사각형에 점이 포함되는지
+        // 좌 상단 모서리 좌표 
+        let x41 = 10;
+        let y41 = 20;
+
+        // 우 하단 모서리 좌표 
+        let x42 = 90;
+        let y42 = 100;
+
+        let x43 = 50,
+            y43 = 50;
+
+        // x43이 x41과 x42 사이에 있다
+        // 그리고 
+        // y43이 y41과 y42 사이에 있다 
+        if (x41 <= x43 && x43 <= x42) {
+            console.log('x 포함')
+        } else {
+            console.olg('x 포함되지 않음')
+        }
+
+        if (y41 <= y43 && y43 <= y42) {
+            console.log('y 포함')
+        } else {
+            console.olg('y 포함되지 않음')
+        }
+
+        if ((x41 <= x43 && x43 <= x42)
+            && (y41 <= y43 && y43 <= y42)) {
+            console.log('사각형 안에 포함 됨')
+        } else {
+            console.log('사각형 안에 포함되지 않음')
+        }
+
+        // 문제.6
+        let num2 = -93;
+        let result = '입력한 수는';
+        if (num2 > 100) {
+            result += '100보다 큰 수,'
+        } else {
+            result += '100보다 작은 수,'
+        }
+
+        if (num2 > 0) {
+            result += '양수,';
+        } else {
+            result += '음수,';
+        }
+
+        if (num2 % 2 != 0) {
+            result += '홀수,'
+        } else {
+            result += '짝수'
+        }
+        console.log(result);
+
+
+        let a = 10;
+        let b;
+        if (a > 10) {
+            b = 1;
+        } else {
+            b = 0;
+        }
+
+        b = (a > 10) ? 1 : 0;
+
+        document.write("<h1>write<h1/>")
+
+
+        a = 9;
+        // 만약에 a가 10보다 크거나 20보다 작고 
+        // a가 홀수여야 한다 
+        /*
+            &&가 || 보다 우선순위가 높다 
+            && : 논리곱     || : 논리합 
+        */
+       // 좋은 예제가 아님. 그렇기에 좋은 예제를 만들어서 자랑해보기 
+        if ((a > 10 || a <20) && a%2 == 1) {
+            console.log('참')
+        }
+        // else {}
+        // else는 if 조건의 정반대 
+        if( !((a > 10 || a <20) && a%2 == 1) ) {
+            console.log('거짓')
+        }
+
+        if(a > 10 && a < 20) {
+
+        }
+        // 정반대 조건
+        if(!(a > 10 && a < 20)) {
+
+        }
+        // 느낌표(!) 없애기 
+        // 분배법칙
+        // 원리 : 모든 것을 빠짐없이 반대로 적용
+        if(a <= 10 || a >= 20) {
+
+        }
+
+        // &&만 있는 경우
+        // 결론 : flase를 만날 때까지만 실행함
+        if(a>1 && a>5 && a>10) {
+
+        }
+        // int[] b = null;
+        // if( b != null && b.length > 0) {
+
+        // }
+
+        // ||만 있는 경우
+        // 결론 : true를 만날 때까지만 실행함
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

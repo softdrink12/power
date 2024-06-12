@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 배열은 변수들의 집합이다. java에서 배워서 넘어감
+        // 외워야 하는 것들 (다 외우면 좋음)
+        // *push()*, pop(), shift(), unshift(), splice(), join(), slice()
+
+
+        // 배열 변수로 만드는 가장 쉬운 방법
+        let arr = [];   // 첫 번째 방법
+        let arr2 = new Array(); // 두 번째 방법 
+
+        // 관리할 값을 알고 있을 때 배열 만들기 
+        arr = [1,2,3];
+        arr = new Array(1,2,3);
+
+        console.log('arr[0] :', arr[0] );
+        arr[1] = 20;
+        console.log('arr[1] :', arr[1] );
+
+        console.log('arr[10] :', arr[10] );
+        arr[10] = 5;
+        console.log('arr[9] :', arr[9] );
+        console.log('arr[10] :', arr[10] );
+
+        console.log(arr);
+        console.log('arr :'+ arr);
+        console.log('arr :', arr);
+
+        // index에 아무거나 넣을 수 있는데, 숫자가 아닌경우 배열의 길이에는 영향을 주지 않음
+        arr['참'] = true;
+        arr['참2'] = true;
+        console.log(arr);
+
+        // index가 있는 것만 출력 됨 
+        // '참'도 출력이 가능 
+        for(let i in arr) {
+            console.log(i);
+        }
+
+        // 문자열도 *접근만* 배열처럼 사용 가능
+        // 언어마다 한글의 사이즈를 다르게 표시할 수 있음
+        let str = '휴먼교육센터';
+        console.log('str.length :', str.length);
+        console.log('str[0] :', str[0]);
+
+
+        // 배열 array의 메소드(함수)
+
+        arr = [0, 3, 2, 5, 4, 5];
+
+        console.log(arr.length);
+        // push
+        // 마지막에 하나 추가 
+        // 자동으로 배열의 사이즈도 늘어남
+        arr.push(100);
+        console.log(arr);
+
+        // unghift
+        // 맨 처음에 하나 추가 
+        // 사이즈도 늘어남
+        arr.unshift(-1);
+        console.log(arr);
+
+        // 마지막 값이 100이었는데 
+        // pop() : 마지막 값을 지우고 그 값을 돌려주는 역할을 수행
+        // 원본 배열에서 마지막 값은 사라진다 
+
+        // arr.pop();
+        let pop = arr.pop();
+        console.log('arr', arr);
+        console.log('pop', pop);
+
+        // 현재 첫 번째 값은 -1 
+        // arr.shift();
+        let shift = arr.shift();
+        console.log('arr', arr);
+        console.log('shift', shift);
+
+        // arr : [ -1, 0, 1, 2, 3, 4, 5, 100]
+        // arr.pop()    // 배열 마지막 값 지우기
+        // arr : [ -1, 0, 1, 2, 3, 4, 5]
+        // arr.shift()  // 배열 맨 처음 값 지우기
+        // arr : [0, 1, 2, 3, 4, 5]
+
+        // reverse : 배열 순서를 거꾸로 뒤집기
+        arr.reverse();
+        console.log('arr ', arr);
+
+        // sort : 오름차순으로 정렬해줌. 내림차순 x
+        // sort + reverse 사용하면 내림차순 정렬 가능
+        arr.sort();
+        console.log('arr', arr);
+
+        // arr : 0, 1, 3, 5, 4, 5
+        // 시작 index, count
+        let arr3 = arr.splice(2, 3);    // splice(2, 3) <- 세 번째 배열부터 3개를 없앤다
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+        
+        // arr : 0, 1, 5
+        // 시작 index만 있는 경우 거기서부터 끝까지 
+        arr3 = arr.splice(1);       // splice (1) <- 첫 번째 배열부터 끝까지 없앤다 
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        arr = [10, 30, 20, 50, 40, 50];
+
+        arr3 = arr.splice(-4, 2);       // splice(-4, 2) <- 뒤에서 네 번째 배열부터 2개를 없앤다 
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        // arr : [10, 30, 40, 50]
+        arr3 = arr.splice(1, 2, '3', '4', '5');     // splice(1, 2, '3', '4', '5') <- 두 번째 배열부터 2개를 없앤 후 추가 
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        // arr : [10, '3', '4', '5', 50]
+        arr3 = arr.splice(1, 0, '일');      // splice(1, 0, '일') <- 두 번째 배열부터 아무것도 없애지 않고 추가한다
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        // arr : [10, '일', '3', '4', '5', 50]
+
+
+        // fill : 채우고 싶은 값, 시작 index, 종료 index 바로 앞까지 
+        let arr4 = [0, 1, 2, 3, 4];
+        // arr4.fill(8)    // 모든 배열을 8로 바꿈
+        // arr4.fill(8, 1)     // 1번 index부터 끝까지 8로 바꿈
+        arr4.fill(8, 1, 3)      // 1번 index부터 3번 index 8로 바꿈
+        console.log('arr4', arr4);
+        // arr4 : [0, 8, 8, 3, 4]
+
+        // 원본은 그냥 두는 함수들 
+
+        // join : 배열 모두를 글씨로 바꿔주는데 
+        //        사이사이에 특정한 문자를 넣어줄 수 있다
+        //        특정 문자의 기본 값은 ',' 
+
+        // arr : [10, '일', '3', '4', '5', 50]
+        let str2 = arr.join();
+        console.log('str2', str2);      // 10,일,3,4,5,50
+        console.log('arr', arr);        // [10, '일', '3', '4', '5', 50]
+        
+        str2 = arr.join("-");
+        console.log('str2', str2);      // 10-일-3-4-5-50
+
+        // str2 : 10-일-3-4-5-50  <- 배열이 아닌 글씨
+        // split : 특수문자로 구분되는 문자열을 잘라서 배열로 만들어 줌
+        // 대신 특수문자는 사라짐 
+        arr3 = str2.split("-")
+        console.log('arr3', arr3); 
+        // arr3 : ['10', '일', '3', '4', '5', '50']
+
+        console.log(new Date().toISOString());
+        // 2024-06-05T03:44:26.912Z
+        let now = new Date().toISOString();
+        let date = now.split("T");
+        let time = date[1].split(":");
+        console.log(time);
+
+        // arr : ['10', '일', '3', '4', '5', '50']
+
+        console.log(arr)
+        // slice : 시작 index ~ 종료 index 바로 앞까지 복사해옴 
+        arr3 = arr.slice(2, 5)
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        // concat : 배열을 합쳐준다
+        let arr5 = ['a', 'b', 'c'];
+        arr3 = arr.concat(arr5);
+        console.log('arr3', arr3); 
+        console.log('arr', arr);
+
+        // toString : 문자로 바꾸는 방법 
+        str = arr.toString();
+        console.log(str)
+        console.log(""+arr)     // "" + 숫자 등을 넣으면 문자로 변한다 
+
+        // arr : [10, '일', '3', '4', '5', 50]
+
+        // indexOf : 해당되는 값이 어느 index에 있는지 
+        // 해당하는 값이 없으면 -1 로 표시됨 
+        // 맨 앞에서 처음 같은 값이 나온 index 출력 
+        console.log( arr.indexOf('3') );
+        console.log( arr.indexOf('100') );
+        arr.push('3')
+        console.log( arr.indexOf('3') );
+
+
+        arr = ['a0', 'a1', 'a2', 'a3', 'a4'];
+
+        // forEach : 모든 요소를 순회하면서
+        // 전달인자로 받은 함수를 실행 해줌
+        arr.forEach(function(a,b,c,d) {
+            console.log('-------------')
+            console.log('a :', a)   // 첫번째 전달인자 : 배열 중 이번 내용
+            console.log('b :', b)   // 두번째 : index
+            console.log('c :', c)   // 세번째 : 원본 배열
+            console.log('d :', d)   // 이후 전달 없음 
+        });
+
+        arr.forEach(function(value, index, array) {
+            console.log('************')
+            console.log('value :', value)   // 첫번째 전달인자 : 배열 중 이번 내용
+            console.log('index :', index)   // 두번째 : index
+            console.log('array :', array)   // 세번째 : 원본 배열
+        });
+
+        let result = arr.forEach(function(value) {
+            console.log('+++++++++++')
+            console.log('value :', value)   // 첫번째 전달인자 : 배열 중 이번 내용
+        });
+        console.log(result);
+
+
+        // forEach처럼 동작하는데
+        // return을 통해서 새로운 배열을 만들어줌 
+        result = arr.map(function(a,b,c,d) {
+            console.log('-------------')
+            console.log('a :', a)   // 첫번째 전달인자 : 배열 중 이번 내용
+            console.log('b :', b)   // 두번째 : index
+            console.log('c :', c)   // 세번째 : 원본 배열
+            console.log('d :', d)   // 이후 전달 없음 
+
+            return a + "!";
+        });
+        console.log(result);
+
+        result = arr.map(function(data) {
+            return data+ "!";
+        }).push('b');
+        console.log(result);
+
+        arr = [8, 4, 2, 8, 4, 7, 8, 5, 2, 3, 6];
+        result = arr.filter( data => {
+
+
+            // if (data > 5) {
+            //     return true;
+            // } else {
+            //     return false;
+            // }
+
+            // let is5; 
+            // if (data > 5) {
+            //     is5 = true;
+            // } else {
+            //     is5 = flase;
+            // }
+            // return is5;
+
+            if (data > 5) {
+                is5 = true;
+            }
+            return false;
+
+            // let is5 = false;
+            // if (data > 5) {
+            //     is5 = true;
+            // }
+            // return is5;
+        })
+        console.log(result);
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

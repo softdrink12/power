@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position</title>
+
+    <style>
+        div.parent {
+            /* border: 1px solid red; */
+            width: 740px;
+            height: 700px;
+
+            background-image: url("//images03.nicepage.com/c461c07a441a5d220e8feb1a/e1900cdaa5c15cecae8746b6/rtyy-min.jpg");
+            background-size: cover;
+            margin: 100px 0px 0px 70px;
+
+            z-index: 2;
+        }
+
+        div.parent2 {
+            /* border: 1px dotted red; */
+            width: 805px;
+            height: 900px;
+            background-color: #6e52c7;
+            
+            position: absolute;
+
+            bottom: 0px;
+            left: 470px;
+
+            z-index: -11;
+        }
+
+        div.parent3 {
+            /* border: 1px solid white; */
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            color: #6e52c7;
+
+            position: absolute;
+
+            bottom:200px;
+            right: 100px;
+            
+            z-index: 999;
+        }
+
+        div.c1 {
+            width: 400px;
+            height: 400px;
+
+            margin: 0 auto;
+            text-align: right
+        }
+
+        h1 {
+            font-size: 70px;
+        }
+        
+        div.c2 {
+            font-size: 23px;
+            
+            display: inline-block;
+
+            padding-top: 50px;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <!-- <img src="//images03.nicepage.com/c461c07a441a5d220e8feb1a/e1900cdaa5c15cecae8746b6/rtyy-min.jpg"> -->
+    </div>
+
+    <div class="parent2"></div>
+
+    <div class="parent3">
+        <div class="c1">
+        <div class="c2"><storng>ABOUT US</storng></div>
+        <h1>Fashion Trends 2021</h1>
+        <h3>Images from <span>Freepik</span></h3>
+        </div>
+    </div>
+</body>
+
+</html>

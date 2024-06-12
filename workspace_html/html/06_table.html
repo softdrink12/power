@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+
+<body>
+    <!--
+        td나 th에 표현할 내용을 적는다
+        td나 th는 tr의 자식요소여야 한다 
+        tr은 table의 자식요소여야 한다
+    -->
+    <table border="1">
+        <tr>
+            <th>제목1</th>
+            <td>제목2</td>
+            <th>제목3</th>
+        </tr>
+        <tr>
+            <td>제목보다 긴 글씨1</td>
+            <td>제목보다 긴 글씨2</td>
+            <td>제목보다 긴 글씨3</td>
+        </tr>
+        <tr>
+            <td>안녕하세요1</td>
+            <td>안녕하세요2</td>
+            <td>안녕하세요3</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <!--
+    colspan, rowsapn 할 때 
+    원본을 먼저 코딩하고
+    합쳐질 것들 중 첫 번째 칸에 속성을 넣고 
+    필요 없어진 코드를 지운다
+-->
+    <table border="1">
+        <tr>
+            <th>제목1</th>
+            <th colspan="2">제목2</th>
+            <!-- <th>제목3</th> -->
+        </tr>
+        <tr>
+            <td rowspan="2">제목보다 긴 글씨1</td>
+            <td>제목보다 긴 글씨2</td>
+            <td>제목보다 긴 글씨3</td>
+        </tr>
+        <tr>
+            <!-- <td>안녕하세요1</td> -->
+            <td>안녕하세요2</td>
+            <td>안녕하세요3</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th colspan="3">NAVER</th>
+        </tr>
+        <tr>
+            <td>ID로그인</td>
+            <td>일회용 번호</td>
+            <td>QR코드</td>
+        </tr>
+        <tr>
+            <td colspan="3">아이디</td>
+        </tr>
+        <tr>
+            <td colspan="3">비밀번호</td>
+        </tr>
+        <tr>
+            <td>로그인 상태 유지</td>
+            <td></td>
+            <td>IP보안</td>
+        </tr>
+        <tr>
+            <th colspan="3">로그인</th>
+        </tr>
+        <tr>
+            <td>비밀번호 찾기</td>
+            <td>아이디 찾기</td>
+            <td>회원가입</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th colspan="3">구글찾기</th>
+        </tr>
+        <tr>
+            <td><a href="http://naver.com" target="_blank">1</a></td>
+            <td><a href="http://naver.com" target="_blank">2</a></td>
+            <td><a href="http://naver.com" target="_blank">3</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://naver.com" target="_blank">4</a></td>
+            <td><a href="http://naver.com" target="_blank">5</a></td>
+            <td><a href="http://google.com" target="_blank">6</a></td>
+
+        </tr>
+        <tr>
+            <td><a href="http://naver.com" target="_blank">7</a></td>
+            <td><a href="http://naver.com" target="_blank">8</a></td>
+            <td><a href="http://naver.com" target="_blank">9</a></td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <table border="1">
+       <caption>caption 테이블의 설명</caption>
+       <summary>제목1, 제목2</summary>
+       <!-- summary 어떤 제목들로 이루어져 있는가 -->
+        <thead>
+            <tr>
+                <td>제목1</td>
+                <td>제목2</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>내용1</td>
+                <td>내용2</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                <img 
+                    src="https://image-comic.pstatic .net/webtoon/823933/thumbnail/thumbnail_IMAG21_.jpg" 
+                    alt="배달왕 표지 이미지"
+                    onerror="this.src='https://image-comic.pstatic.net/webtoon/823663/thumbnail/thumbnail_IMAG21_a6c2cab5-036e-4747-9a56-aafb0ae3b6ff.jpg'"
+                    width="200"
+                    height="100"
+                    >
+
+            </td>
+            <td><strong>배달왕</strong><br>박만사</td>
+        </tr>
+        <tr>
+            <td>
+                <img alt="강한 누나 이미지" src="https://image-comic.pstatic.net/webtoon/823076/thumbnail/thumbnail_IMAG21_e3e05e7f-d9b8-4d5b-937c-33c94c74170d.jpg">
+            </td>
+            <td><strong>강한 누나</strong><br>멋쟁이</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://image-comic.pstatic.net/webtoon/823663/thumbnail/thumbnail_IMAG21_a6c2cab5-036e-4747-9a56-aafb0ae3b6ff.jpg">
+            </td>
+            <td><strong>불효자</strong><br>정찬</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://image-comic.pstatic.net/webtoon/823999/thumbnail/thumbnail_IMAG21_db3ba875-37f1-4d05-a7c9-73d9bb43fc62.jpg">
+            </td>
+            <td><strong>2024 내일 뭐 입지?</strong><br>네이버웹툰 작가</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://image-comic.pstatic.net/webtoon/823971/thumbnail/thumbnail_IMAG21_ec848365-0106-4bf2-8c5d-3c0b1723f8b2.jpg">
+            </td>
+            <td><strong>이세계 캠핑으로 힐링 라이프</strong><br>일인분/맹깐/금의행</td>
+        </tr>
+    </table>
+</body>
+
+</html>

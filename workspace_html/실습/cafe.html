@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cafe</title>
+
+    <style>
+        #textbox {
+            height: 30px;
+            width: 300px;
+            border: 1px groove lightgray;
+
+            /* clear: both; */
+        }
+
+        #buttonbox {
+            width: 60px;
+            height: 34px;
+
+            background-color: #03c75a;
+            color: white;
+            border: 1px hidden;
+ 
+        }
+
+        #textbox,#buttonbox {
+            float: right;
+        }
+
+        #first::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        h1 {
+            /* display: inline-block; */
+
+            line-height: 0.5;
+        }
+
+        .button2 {
+            border: 1px groove lightgray;
+            width: 100px;
+            height: 35px;
+
+            background-color: white;
+        }
+
+        #second {
+            /* border: 1px solid red; */
+
+            height: 100px;
+        }
+
+        .flex-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .any {
+            width: 15px;
+            height: 15px;
+        }
+
+        .flex-item2 {
+            display: flex;
+            justify-content: space-between;
+
+            /* border: 1px solid red; */
+            width: 400px;
+
+        }
+
+        select {
+            width: 80px;
+            height: 30px;
+
+            border: 1px groove lightgray;
+        }
+
+        .third {
+            /* border: 1px solid red; */
+
+            width: 1270px;
+            height: 50px;
+
+            display: flex;
+            justify-content: flex-end;    
+        }
+
+        table {
+            width: 1270px;
+            height: 300px;
+
+            border-collapse: collapse;
+        }
+
+        tr > td {
+            border-bottom: 1px groove lightgray;
+
+            text-align: center;
+        }
+
+        tr > th {
+            border-top: 1px solid black;
+            border-bottom: 1px groove lightgray;
+        }
+
+        .fifth {
+            /* border: 1px solid red; */
+
+            /* width: 150px; */
+            /* height: 100px; */
+            /* margin: 15px; */
+
+            display: inline-block;
+        }
+
+        .six2 {
+            /* border: 1px solid red; */
+            display: inline-block;
+            width: 1270px;
+            height: 100px;
+
+            text-align: right;
+        }
+
+        .six > input {
+            border: 1px groove lightgray;
+            background-color: white;
+
+            width: 70px;
+            height: 35px;
+        }
+
+        .seven {
+            border-bottom: 1px groove lightgray;
+            width: 1270px;
+            height: 50px;
+
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .seven > input {
+            border: 1px groove lightgray;
+            background-color: white;
+
+            /* width: 70px; */
+            /* height: 35px; */
+        }
+
+        #pro {
+            color: #03c75a;
+        }
+
+        .eight {
+            /* border: 1px groove lightgray; */
+
+            margin: 10px 0 0 350px;
+            text-align: center;
+            height: 100px;
+            width: 550px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="first">
+        <input id="buttonbox" type="button" name="검색" value="검색"> <input id="textbox" type="text"> 
+    </div>
+
+    <div id="second">
+        <div class="flex-item">
+            <h1>09. 생산관리 프로그래밍기초C#(과제제출)</h1> <input class="button2" type="button" name="게시판 분석" value="게시판 분석 ">
+        </div>        
+    </div>
+
+    <div class="third">
+        <div class="flex-item2">
+        <span>새글 구독<input class="any" type="checkbox"></span> <span><input class="any" type="checkbox">공지 숨기기</span>
+        <select name="number">
+            <option value="5개씩" selected>5개씩</option>
+            <option value="10개씩" >10개씩</option>
+            <option value="15개씩" >15개씩</option>
+            <option value="20개씩" >20개씩</option>
+            <option value="25개씩" >25개씩</option>
+        </select>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th colspan="2"></th>
+            <!-- <th></th> -->
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회</th>
+            <th>좋아요</th>
+        </tr>
+        <tr>
+            <td> <input type="checkbox"> </td>
+            <td>392</td>
+            <td>생산관리 프로그래밍 기초C#(과제제출)</td>
+            <div class="c1">
+            <td>김승환</td>
+            <td>2024.04.13</td>
+            <td>999</td>
+            <td>99</td>
+            </div>
+        </tr>
+        <tr>
+            <td> <input type="checkbox"> </td>
+            <td>391</td>
+            <td>생산관리 프로그래밍 기초C#(과제제출)</td>
+            <td>김승환</td>
+            <td>2024.04.13</td>
+            <td>999</td>
+            <td>99</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox"> </td>
+            <td>388</td>
+            <td>생산관리 프로그래밍 기초C#(과제제출)</td>
+            <td>김승환</td>
+            <td>2024.04.13</td>
+            <td>999</td>
+            <td>99</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox"> </td>
+            <td>386</td>
+            <td>생산관리 프로그래밍 기초C#(과제제출)</td>
+            <td>김승환</td>
+            <td>2024.04.13</td>
+            <td>999</td>
+            <td>99</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox"> </td>
+            <td>377</td>
+            <td>생산관리 프로그래밍 기초C#(과제제출)</td>
+            <td>김승환</td>
+            <td>2024.04.13</td>
+            <td>999</td>
+            <td>99</td>
+        </tr>
+    </table>
+
+    <div class="fifth">
+        <div>
+        <input type="checkbox">&nbsp;전체선택
+        </div>
+    </div>
+    <br>
+    <div class="six2">
+        <div class="six">
+            <input type="button" value="이동">
+            <input type="button" value="삭제">
+            <input type="button" value="글쓰기">
+        </div>
+
+    <div class="seven">
+        <input id="pro" type="button" value="1">
+        <input type="button" value="2">
+        <input type="button" value="3">
+        <input type="button" value="4">
+    </div>
+
+    <div class="eight">
+        <select name="number">
+            <option selected>전체기간</option>
+            <option>10개씩</option>
+            <option>15개씩</option>
+            <option>20개씩</option>
+            <option>25개씩</option>
+        </select>
+        <select name="number">
+            <option selected>게시물 + 댓글</option>
+            <option>10개씩</option>
+            <option>15개씩</option>
+            <option>20개씩</option>
+            <option>25개씩</option>
+        </select>
+        <input id="buttonbox" type="button" name="검색" value="검색"> <input id="textbox" type="text"> 
+    </div>
+
+</body>
+</html>
