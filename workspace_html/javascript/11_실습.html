@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mk1 {
+            display: flex;
+        }
+
+        #mk2 {
+            width: 100px;
+            height: 100px;
+
+            display: inline-block;
+        }
+
+        #mk3 {
+            width: 100px;
+            height: 100px;
+
+            display: inline-block;
+        }
+
+        #mk4 {
+            width: 100px;
+            height: 100px;
+
+            display: inline-block;
+        }
+
+        #color {
+            width: 300px;
+            height: 100px;
+            border: 1px solid red;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        #game {
+            border: 1px solid red;
+            width: 500px;
+            height: 500px;
+
+            position: relative;
+        }
+
+        #game #char {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            thumb();
+
+            // 실습 1
+            document.querySelector("#same").addEventListener("click", function (event) {
+
+                // event.target, event.currentTarget, this, document.querySelector("#same")
+                // 위의 코드들은 모두 같은 DOM
+
+                if (event.target.checked) {
+                    let name = document.getElementById("name")
+                    let tel = document.getElementById("tel")
+                    let addr = document.getElementById("addr")
+                    // getElementById 는 querySelector와 같이 사용할 수 있다 
+
+                    console.log(name.value);
+                    console.log(tel.value);
+                    console.log(addr.value);
+                    // console.log를 찍는 이유는 확인을 해보기 위함
+
+                    document.getElementById("name2").value = name.value;
+                    document.getElementById("tel2").value = tel.value;
+                    document.getElementById("addr2").value = addr.value;
+                } else {
+                    document.getElementById("name2").value = "";
+                    document.getElementById("tel2").value = "";
+                    document.getElementById("addr2").value = "";
+                }
+            })
+
+            // 실습2
+            function thumb() {
+                document.querySelector("#mkm").addEventListener("click", function (event) {
+
+                    // 이미지 주소 확인을 위한 콘솔로그 
+                    // console.log(event.target.getAttribute("src"));
+
+                    let mk1 = document.querySelector("#mk1")
+                    mk1.setAttribute('src', event.target.getAttribute("src"));
+
+                })
+            }
+
+            // 실습 3
+            // 특정 공간의 색을 바꾸자
+            // 4개 정도의 버튼을 누를 때마다 특정공간의 색이 바뀌는 것
+
+            // 빨강, 초록, 파랑, 핑크 
+            // class를 먼저 만들어두고 버튼을 클릭할 때마다 
+            // background-color: red;
+
+            document.querySelector("#빨강").addEventListener("click", function () {
+                let color = document.querySelector("#color");
+
+                // 클래스 삭제 방법
+                color.classList.remove("red")
+                color.classList.remove("blue")
+                color.classList.remove("pink")
+                color.classList.remove("green")
+
+                // 클래스 추가 방법
+                color.classList.add("red");
+            })
+            document.querySelector("#초록").addEventListener("click", function () {
+                let color = document.querySelector("#color");
+
+                // 클래스 삭제 방법
+                color.classList.remove("red")
+                color.classList.remove("blue")
+                color.classList.remove("pink")
+                color.classList.remove("green")
+
+                // 클래스 추가 방법
+                color.classList.add("green");
+            })
+            document.querySelector("#파랑").addEventListener("click", function () {
+                let color = document.querySelector("#color");
+
+                // 클래스 삭제 방법
+                color.classList.remove("red")
+                color.classList.remove("green")
+                color.classList.remove("blue")
+                color.classList.remove("pink")
+
+                // 클래스 추가 방법
+                color.classList.add("blue");
+            })
+            document.querySelector("#핑크").addEventListener("click", function () {
+                let color = document.querySelector("#color");
+
+                // 클래스 삭제 방법
+                color.classList.remove("red")
+                color.classList.remove("blue")
+                color.classList.remove("pink")
+                color.classList.remove("green")
+
+                // 클래스 추가 방법
+                color.classList.add("pink");
+            })
+
+            //실습 5
+            let time = document.querySelector("#time");
+            // time은 div이고 그 안에 컨텐츠 영역에 글씨 쓰기
+            time.textContent = 'textContent'
+            time.innerText = 'innerText'
+            time.innerHTML = 'innerHTML'
+
+            time.innerText = '시 : 분 : 초';
+
+            let now = new Date();
+            let h = now.getHours();
+            let m = now.getMinutes();
+            let s = now.getSeconds();
+
+            let hms = h + "시 " + m + "분 " + s + "초"
+            time.innerText = hms;
+
+            // 실시간 (1초에 4번) 갱신
+            // setInterval : 시간을 계속 갱신하는 방법
+            setInterval(function () {
+                let now = new Date();
+                let h = now.getHours();
+                let m = now.getMinutes();
+                let s = now.getSeconds();
+
+                // 첫번째방법
+                if (s < 10) {
+                    s = "0" + s;
+                }
+
+                let hms = h + "시 " + m + "분 " + s + "초"
+
+                hms += now.getFullYear() + "년"
+
+                time.innerText = hms;
+            }, 1000 / 4)
+
+
+            // 실습 5-2
+            document.querySelector("#calc").addEventListener("click", function () {
+                let year = document.querySelector("#year").value;
+                document.querySelector("#age").textContent = new Date().getFullYear() - year + 1;
+
+            })
+
+
+            // 실습 6
+            document.querySelector("#order").addEventListener("click", function () {
+
+                // 주문 총 금액 
+                let total_price = 0;
+                let total_text = "";
+
+                // select : 피자종류
+                let type = document.querySelector("#type");
+
+                // 선택된 option의 value 구하는 방법
+                // console.log(type.value);
+                let type_value = type.value;
+                // 텍스트로 변환되기 때문에 Number를 사용해서 바꿔준다
+                total_price += Number(type_value);
+
+                // select의 선택된 option 가져오는 방법 ==> ("#type option:checked")
+                let type_text = document.querySelector("#type option:checked").innerText
+                total_text += "피자종류 :" + type_text + ",";
+                // console.log(type_text);
+
+                // 사이즈 선택
+                let size = document.querySelector("[name=size]:checked")
+                total_price += Number(size.value);
+                // console.log(size.value, total_price);
+
+                // css 선택자로 글씨 span 가져오기 ==> ("[name=size]:checked + span")
+                // console.log(document.querySelector("[name=size]:checked + span").textContent);
+
+                // 부모로 올라갔다가 span으로 내려오기 ==> (size.parentNode.querySelector("span")
+                // console.log(size.parentNode.querySelector("span").innerText); 
+
+                // 같은 속성 값을 가진다는 아이디어로 가져오기 ==> ("label[for="+size.getAttribute("id")+"]")
+                // console.log(document.querySelector("label[for="+size.getAttribute("id")+"]"));
+
+                // console.log(size.getAttribute("data-name"))
+                total_text += "사이즈 :" + size.getAttribute("data-name") + ",";
+
+                // console.log(total_text);
+
+                total_text += "토핑 :"
+                let list_topping = document.querySelectorAll('.topping:checked');
+                for (let i = 0; i < list_topping.length; i++) {
+                    total_price += Number(list_topping[i].value);
+                    total_text += list_topping[i].getAttribute("data-topping") + ","
+                }
+
+                total_text += "요청사항 :" + document.querySelector("#request").value;
+
+                console.log("주문내역 :" + total_text);
+                console.log("총 가격 :" + total_price);
+            })
+
+            // 움직이는 게임 만들기 
+            let top = 0;
+            let left = 0;
+            document.querySelector("body").addEventListener("keyup", function (event) {
+                console.log(event.keyCode)
+                // right : 39
+                // down : 40
+                // left : 37
+                // up : 38
+
+
+                if (event.keyCode == 39) { // 오른쪽 방향키 입력
+                    left += 50;
+                    document.querySelector("#char").style.left = left + "px";
+                } else if (event.keyCode == 37) { // 왼쪽 방향키 입력
+                    left -= 50;
+                    document.querySelector("#char").style.left = left + "px";
+                } else if (event.keyCode == 38) { // 위쪽 방향키 입력
+                    top -= 50;
+                    document.querySelector("#char").style.top = top + "px";
+                } else if (event.keyCode == 40) { // 아래쪽 방향키 입력
+                    top += 50;
+                    document.querySelector("#char").style.top = top + "px";
+                }
+
+                for (let i = 0; i < 50; i += 1) {
+                    setTimeout(function () {
+                        document.querySelector("#char").style.left = i + 'px';
+                    }, 100 * i)
+                }
+
+            })
+
+
+            // lotto
+            let lotto = [];
+
+            // // 첫번째 뽑기
+            // let tmp = parseInt(Math.random() * 45) + 1;
+            // console.log('tmp0', tmp)
+            // lotto.push(tmp);
+            // console.log(lotto)
+
+            // // 두번째 뽑기 
+            // do {
+            //     tmp = parseInt(Math.random() * 45) + 1;
+            //     console.log('tmp1', tmp)
+            // } while (lotto[0] != tmp)
+            // lotto.push(tmp);
+            // console.log(lotto)
+
+            // // 세번째 뽑기
+            // do {
+            //     tmp = parseInt(Math.random() * 45) + 1;
+            //     console.log('tmp2', tmp)
+            // } while (lotto[0] == tmp || lotto[1] == tmp)
+            // lotto.push(tmp);
+            // console.log(lotto);
+
+
+            lotto = [];
+            while (lotto.length != 6) {
+
+                let isDup
+                do {
+                    isDup = false;
+                    let tmp = parseInt(Math.random() * 45) + 1;
+                    console.log('tmp', tmp);
+
+                    // 이거 대신 배열의 indexof 사용해도 됨
+                    for (let i = 0; i < lotto.length; i++) {
+                        if (lotto[i] == tmp) {
+                            isDup = true;
+                            break;
+                        }
+                    }
+
+                    if(!isDup) {
+                        lotto.push(tmp);
+                    }
+                } while(isDup)
+                console.log(lotto)
+            }
+
+            // 로또퀴즈
+            // 지정한 자리를 제외하고 자동뽑기
+            // ex1) 첫번째 6, 두번째 8 고장하고나머지 자동선택
+            // 두번째 5, 네번째 30, 다섯번째 35 고정하고 나머지 자동선택 
+
+            // 3개 이상의 Q&A 아코디언 구현
+
+            // 3개 이상의 이미지 캐러셀Carousel 구현
+
+
+        });
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <h2>실습 1</h2>
+        <div id="di1">주문 정보<br>
+            이름 : <input id="name" type="text"><br>
+            연락처 : <input id="tel" type="text"><br>
+            주소 : <input id="addr" type="text"><Br>
+
+            <hr>
+            배송 정보<br>
+            <input id="same" type="checkbox"> 주문 정보와 배송 정보가 같습니다<br>
+            이름 : <input id="name2" type="text"><Br>
+            연락처 : <input id="tel2" type="text"><br>
+            주소 : <input id="addr2" type="text">
+        </div>
+    </div>
+
+    <div>
+        <h2>실습 2</h2>
+        <div>
+            <img id="mk1"
+                src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fwww.dogdrip.net%2Fdvs%2Fd%2F23%2F07%2F05%2F28f30b89ac3c243b43feaab28967ab42.jpeg&type=a340">
+        </div>
+        <div id="mkm">
+            <div>
+                <img id="mk2"
+                    src="https://search.pstatic.net/sunny/?src=https%3A%2F%2F3.gall-img.com%2Ftdgall%2Ffiles%2Fattach%2Fimages%2F82%2F992%2F968%2F249%2F942313feeec7264cb9edc9c465ea435a.jpg&type=a340">
+            </div>
+            <div>
+                <img id="mk3"
+                    src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA5MzBfMjIz%2FMDAxNjY0NTM4MjU3NTk2.Zo7-RV2b-5E97XvGO1sUdurIFKkjHRJOJlWNJ1cwV-Qg.xbOu8hDhN23dVpLva5bWqHYyihD1dpvVs6yr3P_kV6Mg.JPEG.wlgoa885%2FIMG_8177.JPG&type=a340">
+            </div>
+            <div>
+                <img id="mk4"
+                    src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMDlfMjMy%2FMDAxNjk2ODM0MDE2NTU4.B9uwvQRU8_kijwOoSTkNOVQaUSAQXkvjhOosE5TsRo0g.iF55-A73JwNvndgtj8s-T3EvxcY4GeS2WLn0of5SjA4g.JPEG.wsp0402%2F%25B4%25D9%25BF%25EE%25B7%25CE%25B5%25E5_%25284%2529.jpg&type=a340">
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>실습3</h2>
+        <div id="color"></div>
+        <div>
+            <button type="button" id="빨강">빨강</button>
+            <button type="button" id="초록">초록</button>
+            <button type="button" id="파랑">파랑</button>
+            <button type="button" id="핑크">핑크</button>
+        </div>
+    </div>
+
+    <div>
+        <h2>실습 5</h2>
+        <div id="time"></div>
+    </div>
+
+    <div>
+        <h2>실습5-2</h2>
+        <div>
+            출생년도(2001) : <input type="text" id="year">
+            <input type="button" id="calc" value="나이계산">
+        </div>
+        <div id="age"></div>
+    </div>
+
+    <div>
+        <h2>실습 6</h2>
+        <div>
+            피자 종류 :
+            <select id="type">
+                <option value="15000">시크릿 가든(15000)</option>
+                <option value="20000">더 히든 시크릿 가든(20000)</option>
+                <option value="25000">햄벅한 새우(25000)</option>
+            </select>
+            <br>
+            사이즈 선택 :
+            <input type="radio" name="size" value="0" data-name="Medium"><span>Medium</span>
+            <label>
+                <input type="radio" name="size" checked="checked" value="3000"
+                    data-name="Large"><span>Large(+3000)</span>
+            </label>
+
+            <input type="radio" id="fam" name="size" value="6000" data-name="Family">
+            <label for='fam'>Family(+6000)</label>
+
+            <input type="radio" name="size" value="0" data-name="Small">Small
+            <br>
+            추가 토핑 :
+            <input type="checkbox" class="topping" value="1000" data-topping="미트토핑">미트토핑(1000)
+            <input type="checkbox" class="topping" value="2000" data-topping="베이컨">베이컨(2000)
+            <input type="checkbox" class="topping" value="3000" data-topping="치즈">치즈(3000)
+            <input type="checkbox" class="topping" value="3500" data-topping="페퍼로니">페퍼로니(3500)
+            <input type="checkbox" class="topping" value="4000" data-topping="카나디안햄">카나디안햄(4000)
+            <br>
+            요청사항 :
+            <input type="text" id="request">
+            <br>
+            <input type="button" value="주문하기" id="order">
+        </div>
+    </div>
+
+    <div id="game">
+        <img id="char" src="https://i.giphy.com/MGqYLloqVU93ndrFmT.webp">
+    </div>
+
+</body>
+
+</html>
