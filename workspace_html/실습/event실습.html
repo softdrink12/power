@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", function() {
+
+            let chk= document.getElementsByClassName("chk")
+                chk[0].addEventListener("click", function(event) {
+                // getElementById 를 제외한 나머지 s가 붙는 함수들은 배열로 들어가기 때문에
+                // chk[0] <== 이런 식으로 배열을 잡아야 함
+                // console.log('test')
+                let name = document.querySelector(".name")
+                let call = document.querySelector(".call")
+                let adr = document.querySelector(".adr")
+                // console.log(call);
+                // console.log(adr);
+
+                console.log(name.value)
+                console.log(call.value)
+                console.log(adr.value)
+
+                // console.log(event2)
+                // event가 없어도 브라우저에서 자동으로 지원해줌
+
+                if(event.target.checked) {
+                    document.querySelector(".name2").value = name.value;    
+                    document.querySelector(".call2").value = call.value;    
+                    document.querySelector(".adr2").value = adr.value;    
+                } else {
+                    document.querySelector(".name2").value = "";
+                    document.querySelector(".call2").value = "";
+                    document.querySelector(".adr2").value = "";
+                }
+
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <fieldset>
+            <legend>주문 정보</legend><br>
+            이름 : <input type="text" class="name"><br>
+            연락처 : <input type="text" class="call"><br>
+            주소 : <input type="text" class="adr"><br>
+        </fieldset>
+        <fieldset>
+            <legend>배송 정보</legend><br>
+            <input type="checkbox" class="chk"> 주문 정보와 배송 정보가 같습니다
+            이름 : <input type="text" class="name2"><br>
+            연락처 : <input type="text" class="call2"><br>
+            주소 : <input type="text" class="adr2"><br>
+        </fieldset>
+    </div>
+</body>
+
+</html>
