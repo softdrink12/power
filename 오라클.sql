@@ -313,7 +313,158 @@ select rpad (substr(ename, 1, 1 ), 2, '*') || substr(ename, 3, 100) from emp;
 -- 실습문제 5
 -- 가운데 글씨만 * 
 --select rpad (substr(ename, 1, 2 ), 3, '*') || substr(ename, 4, 100) from emp;
-select substr(job, 1, length(job) / 2) from emp;
-select substr(job, (length(job)+1) / 2 + 1, 100) from emp;
-select lpad ( substr(job, (length(job)+1) / 2 + 1, 100),;
-select job from emp;
+select 
+--    length(ename) /2 + 1,
+    substr(ename, 1, length(ename) /2 - 0.5) || '*' || 
+    substr(ename,length(ename) /2 + 1.5)
+from emp;
+
+-- 숫자 함수 
+-- trunc : 지정된 숫자의 특정 위치에서 버림한 값을 반환
+select trunc(1234.5678), 
+trunc(1234.5678, 2),
+trunc(1234.5678, -2),
+trunc(-12.34)
+from dual;
+
+-- ceil, floor : 각각 입력된 숫자와 가까운 큰 정수, 작은 정수를 반환해줌
+select ceil(3.14),
+floor(3.14),
+ceil(-3.14),
+floor(-3.14)
+from dual;
+
+-- 날짜 데이터를 다루는 함수 
+-- sysdate : 지금 오라클 pc의 시간이 나온다
+-- 강사 pc는 9시간 차이 난다(영국 0시 기준, 한국 +9시)
+-- 날짜 정보 중 일부만 select로 표시 됨
+select sysdate, sysdate+1, sysdate-1 from dual;
+
+-- 몇 개월 이후 날짜를 구하는 add_months 함수 
+select sysdate, add_months(sysdate, 3) from dual;
+
+-- column에 +를 적으면 모두 숫자로 변경해서 적용함
+-- || <- 숫자도 문자로 적용함 
+
+-- 날짜, 숫자 데이터를 문자 데이터로 변환 하는 to_char 함수
+select to_char(sysdate+(9/24), 'yyyy"년"mm"월"dd"일" hh24"시"mi"분"ss"초"') as "현재날짜시간" from dual;
+
+-- 문자 데이터를 날짜 데이터로 변환하는 to_date 함수 
+select 
+    sysdate - to_date('2024-05-07', 'yyyy-mm-dd')
+from dual; 
+
+-- nvl 함수 
+-- nvl : 첫 번쨰 입력 데이터가 null이 아니면 그대로 반환하고,
+-- null 이라면 두 번째 입력 데이터에 지정한 값을 반환
+select comm, nvl(comm, -1), sal, sal + comm, sal + nvl(comm, 0) from emp;
+
+select * from emp
+where comm = 0 or comm is null;
+
+select * from emp 
+where nvl(comm, 0) = 0;
+
+-- case문
+-- if문과 비슷하다 
+select empno, ename, comm,
+    case
+        when comm is null then '해당사항없음'
+--        when comm = 0 then '수당없음'
+--        when comm > 0 then '수당: ' || comm
+        else to_char(comm)
+    end as "new_comm"
+from emp;
+
+select empno, comm,
+    case
+        when comm is null then 0
+        else 1
+    end as " new_comm"
+from emp;
+
+-- 실습문제 2
+select empno, ename, sal,
+    trunc (sal/21.5, 2) as DAY_pay, 
+    round (sal/21.5 / 8 , 1) as TIME_PAY
+from emp;
+
+-- 실습문제 3
+select empno, ename, hiredate,
+    to_char(add_months(next_day(hiredate, 2), 3),'yyyy-mm-dd') as "R_JOB",
+    nvl(to_char(comm), 'N/A') as comm
+from emp;
+
+-- 실습문제 4
+select empno, ename, mgr,
+    case
+        when mgr is null then '0000'
+        when mgr like '75%' then '5555'
+        when mgr like '76%' then '6666'
+        when mgr like '77%' then '7777'
+        when mgr like '78%' then '8888'
+        else to_char(mgr)
+        end as "CHG_MGR"
+from emp;
+
+-- 하나의 열에 출력 결과를 담는 다중행 함수 
+-- count처럼 null은 제외됨
+-- count는 *을 많이 씀
+select sum(sal), count(sal), count(*), count(comm) from emp;
+
+select count(*) from emp where ename like'%A%';
+
+select max(sal), max(ename), min(hiredate), min(comm), avg(sal) from emp;
+
+-- 부서별 급여 총합 표시 
+-- deptno, sum, avg
+select sum(sal), avg(sal) from emp
+where deptno = 10
+union all
+select sum(sal), avg(sal) from emp
+where deptno = 20
+union all
+select sum(sal), avg(sal) from emp
+where deptno = 30;
+
+-- distinct처럼 중복을 제거, 분류 해줌
+-- select에는 group by한 것이나 다중행 함수(집계함수 avg, min, max, sum ...)만 올 수 있음 
+select deptno, avg(sal), sum(sal), count(*) from emp
+group by deptno;
+
+select deptno, empno, sum(sal) from emp
+group by deptno, empno;
+
+select deptno, job, count(*)
+from emp
+group by deptno, job
+order by deptno, job; 
+
+-- having : group by에서만 사용된다
+-- 집계함수를 조건으로 걸고 싶은 경우에 사용
+select deptno, job, avg(sal)
+from emp
+group by deptno, job
+--    having avg(sal) >= 2000;
+--    having count(*) >= 2;
+    having deptno = 20;
+    
+-- 실습문제 1
+select deptno, trunc(avg(sal)), max(sal), min(sal), count(*) from emp
+group by deptno;
+
+-- 실습문제 2
+select job, count(*) from emp
+group by job 
+    having count(*) >= 3;
+    
+-- 실습문제 3
+select to_char(hiredate,'yyyy') as HIRE_YEAR, deptno, count(*) from emp
+group by to_char(hiredate,'yyyy'), deptno;
+
+-- 실습문제 4
+select nvl2(to_char(comm), 'o', 'x') as "EXIST_COMM", count(*) from emp
+group by nvl2(to_char(comm), 'o', 'x')
+order by nvl2(to_char(comm), 'o', 'x') desc;
+
+
