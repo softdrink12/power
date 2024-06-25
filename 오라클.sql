@@ -467,4 +467,135 @@ select nvl2(to_char(comm), 'o', 'x') as "EXIST_COMM", count(*) from emp
 group by nvl2(to_char(comm), 'o', 'x')
 order by nvl2(to_char(comm), 'o', 'x') desc;
 
+select * from dept;
+
+/*5*/select job, count(*) cnt
+/*1*/from emp
+/*2*/where sal > 1000
+/*3*/group by job 
+/*4*/having count(*) >= 3
+/*6*/order by cnt desc;
+
+select *
+from emp, dept
+order by empno;
+
+select 14 * 4 from dual;
+
+-- 여러 테이블을 하나의 테이블처럼 사용하는 join
+-- table 2개 이상 조회할 때 관계를 꼭 알려줘야 원하는 정보만 출력된다
+-- 전체 table 수 -1개의 조건이 적당하다 
+select emp.ename, dept.loc, emp.deptno
+from emp, dept
+where emp.deptno = dept.deptno
+order by empno;
+
+-- table 별칭 설정
+-- *와 컬럼을 같이 쓰는 경우 *에 table을 지정해줘야 한다 
+select ename, e.*, d.*
+from emp e, dept d 
+where e.deptno = d.deptno;
+
+select * from salgrade;
+
+select * 
+from emp e, salgrade s
+where e.sal >= s.losal and e.sal <= s.hisal;
+
+select e1.empno, e1.ename, e1.mgr, e2.empno, e2.ename
+from emp e1, emp e2
+where e1.mgr = e2.empno;
+
+-- using에 둘 다 같은 컬럼명이 있는 경우만 쓸 수 있다 
+select *
+from emp join dept using (deptno);
+
+select * 
+from emp join dept on (emp.deptno = dept.deptno);
+select *
+from emp e1 join emp e2 on (e1.mgr = e2.empno);
+
+select *
+from emp e1 join emp e2 on (e1.mgr = e2.empno);
+
+-- left outer join : 왼쪽 테이블을 모두 출력하는걸 보장해준다 
+select *
+from emp e1 left outer join emp e2 on (e1.mgr = e2.empno);
+
+-- quiz 1 
+-- empno, ename, dname, loc 출력 : 결과 14줄
+select empno, ename, dname, loc
+from emp, dept
+where emp.deptno = dept.deptno;
+
+select empno, ename, dname, loc
+from emp join dept using (deptno);
+
+select empno, ename, dname, loc
+from emp left outer join dept on(emp.deptno = dept.deptno);
+
+-- quiz 2
+-- 사번, 이름, 부서명, 급여등급을 출력 : 결과 14줄
+select e.empno, e.ename, d.dname, s.grade 
+from emp e, dept d, salgrade s
+where e.deptno = d.deptno
+and e.sal >= s.losal and e.sal <= s.hisal;
+
+select e.empno, e.ename, d.dname, s.grade
+from salgrade s , emp e join dept d using (deptno)
+where(e.sal >= s.losal and e.sal <= s.hisal);
+
+select e.empno, e.ename, d.dname, s.grade
+from emp e 
+left outer join dept d on (e.deptno = d.deptno)
+left outer join salgrade s on (e.sal >= s.losal and e.sal <= s.hisal);
+
+-- quiz 3
+-- 상사보다 월급이 높은 사원의 이름, 급여, 매니저 이름, 매니저 급여 출력
+
+select e1.ename, e1.sal, e2.ename, e2.sal
+from emp e1, emp e2
+where e1.mgr = e2.empno and e1.sal > e2.sal;
+
+-- 실습문제 1
+select d.deptno, d.dname, e.empno, e.ename, e.sal
+from emp e, dept d
+where e.sal > 2000 and e.deptno = d.deptno
+order by deptno;
+
+-- 실습문제 2
+select d.deptno, d.dname, floor(avg(sal)), max(sal),min(sal),count(*) 
+from emp e left outer join dept d on (e.deptno = d.deptno) 
+group by d.deptno, d.dname;
+
+-- 실습문제 3
+select d.deptno, d.dname, e.empno, e.ename, e.job, e.sal
+from dept d left outer join emp e on (e.deptno =d.deptno)
+order by d.deptno;
+
+-- 서브쿼리
+select sal from emp where ename = 'JONES';
+
+select * from emp 
+where sal > (select sal from emp where ename = 'JONES');
+
+-- blake보다 높은 연봉을 받는 사람들
+select * from emp
+where sal > (select sal from emp where ename = 'BLAKE');
+
+-- JONES와 같은 job을 가지고 있는 사원들
+select * from emp
+where job = (select job from emp where ename = 'JONES');
+
+-- 평균 급여보다 많이 받는 사람들
+select * from emp 
+where sal > (select avg(sal) from emp);
+
+select * from emp 
+where sal in (
+    select max(sal) from emp group by deptno
+);
+
+
+
 
