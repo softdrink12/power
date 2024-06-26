@@ -596,6 +596,170 @@ where sal in (
     select max(sal) from emp group by deptno
 );
 
+-- from절에 사용하는 서브쿼리 
+select *
+from (
+    select * from emp where deptno = 10
+);
 
+select rownum, emp.* 
+from emp
+--where rownum = 4;
+-- order by가 select보다 순서가 느리기 때문에 rownum이 먼저 적용됨
+order by ename;
 
+-- order by를 적용 시키고 rownum을 적용시키는 방법
+select rownum, e.* 
+from (
+    select * from emp order by ename
+) e;
 
+select job, count(*) from emp 
+group by job
+having count(*) >= 3;
+
+select * 
+from (
+    select job, count(*) cnt from emp 
+    group by job
+)
+where cnt >= 3;
+
+-- with절
+with e10 as (
+    select * from emp where deptno = 10
+)
+select * from e10;
+
+-- 실습문제 1
+select job from emp where ename = 'ALLEN';
+select job, empno, ename, sal, deptno, dname 
+from emp join dept using (deptno)
+where job = (select job from emp where ename = 'ALLEN')
+order by sal desc;
+
+-- 실습문제 2
+select avg(sal) from emp;
+select e.empno, e.ename, d.dname, e.hiredate, d.loc, e.sal, s.grade 
+from emp e, salgrade s, dept d
+where sal > (select floor(avg(sal)) from emp) 
+and e.sal between losal and hisal 
+and e.deptno = d.deptno
+order by sal desc, empno;
+
+-- 실습문제 3
+select e.empno, e.ename, e.job, d.deptno, d.dname, d.loc
+from emp e left outer join dept d on (e.deptno = d.deptno)
+where e.deptno = 10
+and job not in (select job from emp where deptno = 30);
+
+-- 실습문제 4
+select sal from emp where job = 'SALESMAN';
+select e.empno, e.ename, e.sal, s.grade from emp e, salgrade s, dept d
+where sal > (select max(sal) from emp where job = 'SALESMAN')
+and e.sal between losal and hisal 
+and e.deptno = d.deptno
+order by empno;
+
+-- 12장
+select * from emp;
+desc emp;
+
+create table emp_ddl (
+    empno number(4),    -- 네 자리의 숫자만 허용
+    ename varchar2(10), -- 10바이트의 글자만 허용
+    job varchar2(9),    -- 제한보다 적은 글씨가 적히면 글씨만큼의 공간만 차지
+    mgr number(4),
+    hiredate date,
+    sal number(7, 2),   -- 2는 소수점 두 번째 자리까지 기록할 수 있다
+    comm number(7, 2),
+    deptno number(2)
+);
+
+select * from emp_ddl;
+desc emp_ddl;
+
+-- 기존 테이블 열 구조와 데이터를 복사하여 새 테이블 생성하는 방법
+create table dept_ddl
+as select * from dept;
+select * from dept_ddl;
+
+-- 기존 테이블 열 구조와 일부 데이터만 복사하여 새 테이블 생성하기 
+create table emp_ddl_30
+as select empno, ename, sal from emp
+where deptno = 30;
+select * from emp_ddl_30; 
+
+-- table을 변경하는 alter
+create table emp_alter
+as select * from emp;
+select * from emp_alter;
+
+alter table emp_alter
+add hp varchar2(20);
+
+-- 열 이름을 변경하는 rename
+alter table emp_alter
+rename column hp to tel;
+
+-- 열의 자료형을 변경하는modify
+alter table emp_alter
+modify empno number(5);
+desc emp_alter;
+
+-- 자료형의 크기가 커지는 건 가능하지만 줄어드는 건 불가능하다
+alter table emp_alter
+modify empno number(4);
+
+-- 특정 열을 삭제할 때 사용하는 drop 
+alter table emp_alter
+drop column tel;
+select * from emp_alter;
+
+alter table emp_alter
+drop column comm;
+select * from emp_alter;
+
+-- table 이름을 변경하는 rename
+rename emp_alter to emp_rename;
+select * from emp_rename;
+
+-- truncate : 특정 테이블의 모든 데이터를 삭제함 
+truncate table emp_rename;
+
+-- drop : 테이블 삭제 
+drop table emp_rename;
+
+-- 10장
+create table dept_temp
+as select * from dept;
+select * from dept_temp;
+
+-- 테이블에 데이터를 추가하는 insert
+-- into로 데이터를 입력할 대상 테이블과 열 입력
+-- values로 입력할 데이터 지정
+insert into 
+dept_temp (deptno, dname, loc)
+values (50, 'DATABASE', 'SEOUL');
+select * from dept_temp;
+
+-- table명 뒤에 괄호()를 생략하면 모든 column
+insert into dept_temp
+values (60, 'NETWORK', 'BUSAN');
+select * from dept_temp;
+
+-- table에 null 데이터 입력하는 방법
+insert into dept_temp
+values (70, 'WEB', null);
+select * from dept_temp;
+
+-- 홀 따옴표'' <- 이것도 null로 보이지만 그래도 null로 작성하기 
+-- java에서 읽을 때 홀 따옴표''는 null로 인식하지 않기 때문에 
+insert into dept_temp
+values (80, 'WEB', '');
+select * from dept_temp;
+
+-- column을 생략하면 자동으로 null이 들어간다 
+insert into dept_temp (deptno, loc)
+values (90, 'INCHEON');
+select * from dept_temp;
