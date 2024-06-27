@@ -763,3 +763,139 @@ select * from dept_temp;
 insert into dept_temp (deptno, loc)
 values (90, 'INCHEON');
 select * from dept_temp;
+
+create table emp_temp
+as select * from emp;
+select * from emp_temp;
+
+-- 테이블에 날짜 데이터 입력하기
+insert into emp_temp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+values (9999, '홍길동','PRESIDENT', null, '2001/01/01', 5000, 1000, 10);
+select * from emp_temp;
+
+insert into emp_temp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+values (1111, '성춘향','MANAGER', 9999, '2001/01/05', 4000, null, 20);
+select * from emp_temp;
+
+insert into emp_temp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+values (2111, '이순신','MANAGER', 9999, to_date('07/01/2001', 'dd/mm/yyyy'), 4000, null, 20);
+select * from emp_temp;
+
+insert into emp_temp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+values (3111, '심청이','MANAGER', 9999, sysdate, 4000, null, 30);
+select * from emp_temp;
+
+-- DDL : create, alter, drop 
+
+-- 서브쿼리를 사용하여 한 번에 여러 데이터 추가하기 
+insert into emp_temp
+select * from emp where deptno = 10;
+select * from emp_temp;
+
+-- table에 있는 데이터를 수정하는 update
+-- update 하기전에 select로 where 조건이 정확한지 확인하고
+--where를 그대로 복사해서 update에 붙여넣도록 하장!
+create table dept_temp2
+as select * from dept;
+select * from dept_temp2;
+
+update dept_temp2
+set loc = 'SEOUL';
+select * from dept_temp2;
+
+-- 수정한 내용을 되돌리는 rollback 
+rollback;
+select * from dept_temp2;
+
+-- 데이터 일부분만 수정할 때 where를 꼭 사용해야 한다 
+update dept_temp2
+set dname = 'DATABASE',
+loc = 'SEOUL'
+where deptno = 40;
+select * from dept_temp2;
+
+create table emp_temp2
+as select * from emp;
+select * from emp_temp2;
+
+select * from emp_temp2
+where job = 'MANAGER';
+
+delete emp_temp2
+where job = 'MANAGER';
+select * from emp_temp2;
+
+-- emp_temp에서 
+-- 급여가 1000이하인 사원의 급여를 3% 인상 하시오 
+select ename, sal, sal*1.03 from emp_temp2
+where sal <= 1000;
+
+update emp_temp2
+set sal = sal*1.03
+where sal <= 1000;
+
+delete emp_temp2;
+select * from emp_temp2;
+
+rollback;
+
+-- 문제 1
+select ename, empno from emp;
+select ename, rpad (substr(empno, 1, 2), length(empno), '*') as empno from emp
+order by empno desc;
+
+-- 문제 2
+select e.empno, e.ename, d.dname, d.loc from
+emp e left outer join dept d on (e.deptno = d.deptno)
+order by dname desc;
+
+select * from dict;
+select * from user_tables;
+
+select * from USER_CONSTrAINTS;
+
+-- index 색인
+-- 오름차순, 내림차순 따로 관리
+create index idx_emp_sal
+on emp(sal);
+select * from user_indexes;
+
+drop index idx_emp_sal;
+
+-- 강제 힌트 
+select /*+ index(idx_emp_sal) */
+* from emp e
+order by empno desc;
+
+-- plan 
+-- sql developer에서는 상단 세번째 아이콘 "계획설명"
+
+create index idx_emp_empno_desc
+on emp ( empno desc );
+
+select max(empno)+1 from emp_temp2;
+
+insert into emp_temp2 (empno, ename)
+values ( (select max(empno)+1 from emp_temp2), '신입2');
+select * from emp_temp2;
+
+-- 시퀀스 sequence
+create table tb_user (
+    user_id number,
+    user_name varchar2(30)
+);
+select * from tb_user;  -- tb_user라는 테이블 생성
+
+create sequence seq_user;   -- 시퀀스 생성
+
+select seq_user.nextval from dual;
+select seq_user.currval from dual;
+
+insert into tb_user (user_id, user_name)
+values (seq_user.nextval, '유저명1');
+insert into tb_user (user_id, user_name)
+values (seq_user.nextval, '유저명2');
+
+insert into tb_user (user_id, user_name)
+values (seq_user.nextval, '유저명3');
+select * from tb_user;
