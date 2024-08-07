@@ -1008,3 +1008,110 @@ insert into table_default (login_id, login_pwd)
 values ('id2', 'pw2');
 select * from table_default;
 
+
+
+----------------------- 8/8 시험 ---------------------------
+CREATE TABLE market (
+	mid	number(4)		NOT NULL,
+	mname	varchar2(20)		NULL,
+	madr	varchar2(20)		NULL,
+	mpn	number(15)		NULL,
+	menuid	number(4)		NOT NULL
+);
+
+CREATE TABLE menu (
+	menuid	number(4)		NOT NULL,
+	burger	varchar2(20)		NULL,
+	potato	varchar2(20)		NULL,
+	cola	varchar2(20)		NULL
+);
+
+CREATE TABLE muser (
+	muid	number(4)		NOT NULL,
+	museradr	varchar2(20)		NULL,
+	muserpn	number(15)		NULL
+);
+
+CREATE TABLE info (
+	iId	number(4)		NOT NULL,
+	iTime	date		NULL,
+	price	number(4)		NULL,
+	menuid	number(4)		NOT NULL,
+	mid	number(4)		NOT NULL,
+	cocid	number(4)		NOT NULL,
+	rid	number(4)		NOT NULL,
+	tofid	number(4)		NOT NULL,
+	muid	number(4)		NOT NULL
+);
+
+CREATE TABLE request (
+	rid	number(4)		NOT NULL,
+	rRe	varchar2(20)		NULL
+);
+
+CREATE TABLE tof (
+	tofid	number(4)		NOT NULL,
+	true	varchar2(20)		NULL,
+	false	varchar2(20)		NULL
+);
+
+CREATE TABLE coc (
+	cocid	number(4)		NOT NULL,
+	cash	varchar2(20)		NULL,
+	card	varchar2(20)		NULL
+);
+
+ALTER TABLE market ADD CONSTRAINT PK_MARKET PRIMARY KEY (
+	mid
+);
+
+ALTER TABLE menu ADD CONSTRAINT PK_MENU PRIMARY KEY (
+	menuid
+);
+
+ALTER TABLE muser ADD CONSTRAINT PK_USER PRIMARY KEY (
+	muid
+);
+
+ALTER TABLE info ADD CONSTRAINT PK_INFO PRIMARY KEY (
+	iId
+);
+
+ALTER TABLE request ADD CONSTRAINT PK_REQUEST PRIMARY KEY (
+	rid
+);
+
+ALTER TABLE tof ADD CONSTRAINT PK_TOF PRIMARY KEY (
+	tofid
+);
+
+ALTER TABLE coc ADD CONSTRAINT PK_COC PRIMARY KEY (
+	cocid
+);
+
+select * from market;
+insert into market values (1111, '맘스터치', '조치원역', 01012345678, 2222);
+
+select * from menu;
+insert into menu values (2222, '싸이버거', '치즈감자', '제로콜라');
+update menu set burger = '5000원';
+update menu set potato = '3000원';
+update menu set cola = '2000원';
+
+select * from muser;
+insert into muser values (3333, '천안시 대흥동 ', 01023456789);
+
+select * from request;
+insert into request values (4444, '감사합니다');
+
+select * from coc;
+insert into coc values (5555, '현금결제', '카드결제');
+
+select * from tof;
+insert into tof values (6666, '결제완료', '미결제');
+
+select * from info;
+insert into info values 
+(9999, sysdate, 5500, 2222, 1111, 5555, 4444, 6666, 3333); 
+update info set price=5000;
+
