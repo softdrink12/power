@@ -1097,6 +1097,7 @@ insert into menu values (2222, '싸이버거', '치즈감자', '제로콜라');
 update menu set burger = '5000원';
 update menu set potato = '3000원';
 update menu set cola = '2000원';
+update menu set burger = '싸이버거';
 
 select * from muser;
 insert into muser values (3333, '천안시 대흥동 ', 01023456789);
@@ -1114,4 +1115,16 @@ select * from info;
 insert into info values 
 (9999, sysdate, 5500, 2222, 1111, 5555, 4444, 6666, 3333); 
 update info set price=5000;
+
+select  i.itime as 주문시간, m.burger as 메뉴, i.price as 총결제금액,
+u.museradr as 회원주소, u.muserpn as 회원전화번호,
+c.cash as 결제방식, t.false as 결제여부, r.rRe as 요청사항
+from 
+menu m join info i using (menuid)
+join request r using (rid)
+join coc c using (cocid)
+join tof t using (tofid)
+join muser u using (muid);
+
+
 
