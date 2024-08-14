@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건의사항 글쓰기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .comments {
+            margin-top: 40px;
+        }
+        .comment {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .reply {
+            margin-left: 20px;
+            border-left: 2px solid #ccc;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>건의사항 글쓰기</h1>
+        <form id="postForm">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" required>
+            
+            <label for="content">내용</label>
+            <textarea id="content" name="content" rows="10" required></textarea>
+
+            <label for="author">작성자</label>
+            <input type="text" id="author" name="author" required>
+            
+            <button type="submit">제출</button>
+        </form>
+        <div id="postDisplay" style="display:none;">
+            <h2>작성된 건의사항</h2>
+            <h3 id="postTitle"></h3>
+            <p id="postContent"></p>
+            <h4 id="postAuthor"></h4>
+            <h2>댓글</h2>
+            <div id="comments" class="comments"></div>
+            <form id="commentForm">
+                <label for="comment">댓글 작성</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+                <button type="submit">댓글 달기</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const author = document.getElementById('author').value;
+
+            const posts = JSON.parse(localStorage.getItem('posts2')) || [];
+            const newPost = {
+                title: title,
+                content: content,
+                author: author,
+                date: new Date().toLocaleString(),
+                comments: []
+            };
+            posts.push(newPost);
+            localStorage.setItem('posts2', JSON.stringify(posts));
+
+            alert('글이 저장되었습니다!');
+            window.location.href = '건의사항.html';
+        });
+
+        function displayPost(postIndex) {
+            const posts = JSON.parse(localStorage.getItem('posts2')) || [];
+            if (postIndex >= 0 && postIndex < posts.length) {
+                const post = posts[postIndex];
+                document.getElementById('postTitle').innerText = post.title;
+                document.getElementById('postContent').innerText = post.content;
+                document.getElementById('postAuthor').innerText = '작성자: ' + post.author;
+                document.getElementById('postDisplay').style.display = 'block';
+                document.getElementById('postForm').style.display = 'none';
+                const commentsContainer = document.getElementById('comments');
+                commentsContainer.innerHTML = '';
+                post.comments.forEach((comment, commentIndex) => {
+                    const commentDiv = createCommentDiv(comment, postIndex, commentIndex);
+                    commentsContainer.appendChild(commentDiv);
+                });
+                document.getElementById('commentForm').onsubmit = function(event) {
+                    event.preventDefault();
+                    const commentText = document.getElementById('comment').value;
+                    const comment = {
+                        text: commentText,
+                        replies: []
+                    };
+                    post.comments.push(comment);
+                    localStorage.setItem('posts2', JSON.stringify(posts));
+                    const commentDiv = createCommentDiv(comment, postIndex, post.comments.length - 1);
+                    commentsContainer.appendChild(commentDiv);
+                    document.getElementById('comment').value = '';
+                };
+            }
+        }
+
+        function createCommentDiv(comment, postIndex, commentIndex) {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <p>${comment.text}</p>
+                <button onclick="showReplyForm(${postIndex}, ${commentIndex})">답글</button>
+                <div class="replies"></div>
+                <form class="replyForm" style="display:none;" onsubmit="addReply(event, ${postIndex}, ${commentIndex})">
+                    <textarea rows="2" required></textarea>
+                    <button type="submit">답글 달기</button>
+                </form>
+            `;
+            comment.replies.forEach(reply => {
+                const replyDiv = document.createElement('div');
+                replyDiv.className = 'reply';
+                replyDiv.innerHTML = `<p>${reply}</p>`;
+                commentDiv.querySelector('.replies').appendChild(replyDiv);
+            });
+            return commentDiv;
+        }
+
+        function showReplyForm(postIndex, commentIndex) {
+            const posts = JSON.parse(localStorage.getItem('posts2')) || [];
+            const post = posts[postIndex];
+            const comment = post.comments[commentIndex];
+            const commentDiv = document.querySelectorAll('.comment')[commentIndex];
+            const replyForm = commentDiv.querySelector('.replyForm');
+            replyForm.style.display = 'block';
+        }
+
+        function addReply(event, postIndex, commentIndex) {
+            event.preventDefault();
+            const posts = JSON.parse(localStorage.getItem('posts2')) || [];
+            const post = posts[postIndex];
+            const comment = post.comments[commentIndex];
+            const replyText = event.target.querySelector('textarea').value;
+            comment.replies.push(replyText);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            const replyDiv = document.createElement('div');
+            replyDiv.className = 'reply';
+            replyDiv.innerHTML = `<p>${replyText}</p>`;
+            event.target.parentElement.querySelector('.replies').appendChild(replyDiv);
+            event.target.querySelector('textarea').value = '';
+            event.target.style.display = 'none';
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postIndex = urlParams.get('postIndex');
+        if (postIndex !== null) {
+            displayPost(parseInt(postIndex, 10));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작업가동률</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        .cell input {
+            width: 100%;
+        }
+
+        /* -------------------------------------------------------------- */
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+        }
+
+        .button-container {
+            text-align: right;
+            /* margin-bottom: 20px; */
+            margin: 20px;
+        }
+
+        /* 버튼 스타일 */
+        .button-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 전체 테이블 스타일 */
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            display: inline-table;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .cell {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-left: 1px solid #ddd;
+        }
+
+
+        /* 첫 번째 행(테이블 헤더) 스타일 */
+        .header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .rightBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        .rightBtn button {
+            font-size: 18px;
+            padding: 10 20px;
+        }
+
+        .new-employee {
+            background-color: #f9f9f9;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        /* -------------------------------------------- 더블 클릭 했을 시 css ------------------------------------------- */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-body .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .modal-body .row .label {
+            font-weight: bold;
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainmain">
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 456</p>
+                            <p id="username" style="color: white;">사용자 : 현준수</p>
+                        </div>
+                    </div>
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                        height: 30px;
+                                                                        position: relative;
+                                                                        left: 320px;
+                                                                        bottom: 75px;
+                                                                        border-radius: 1em;
+                                                                        border: 1px solid gray;">
+                </div>
+            </div>
+        </header>
+
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">계획</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="발주.html">발주</a></li>
+                        <li><a href="계획수립.html">계획 수립</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서.html">작업지시서</a></li>
+                        <li><a href="업무절차.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황.html">진행현황</a></li>
+                        <li><a href="출하현황.html">출하현황</a></li>
+                        <li><a href="작업가동률.html">작업가동률</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="자재발주.html">재고 발주</a></li>
+                        <li><a href="재고현황.html">재고 현황</a></li>
+                        <li><a href="반출입대장.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">인사관리</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="인사관리.html">인사조회</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항.html">공지사항</a></li>
+                        <li><a href="건의사항.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- -----------------------------아코디언끝-------------------------------------- -->
+            <div id="mainsel" style="width: 79%; ">
+
+                <div class="asdasd">
+                    <div style=" width: 200px; height: 30px; padding: 27px;">작업가동률</div>
+                </div>
+
+                <div class="button-container">
+                    <button id="추가버튼">추가</button>
+                    <button id="삭제버튼">삭제</button>
+                    <button id="저장버튼">저장</button>
+                </div>
+
+                <div class="행테이블">
+                    <div class="row header">
+                        <input id="selectAllCheckbox" class="check-cell" type="checkbox">
+                        <div class="cell">작업코드</div>
+                        <div class="cell">공정</div>
+                        <div class="cell">불량률</div>
+                        <div class="cell">양품률</div>
+                        <div class="cell">시간가동률</div>
+                        <div class="cell">성능가동률</div>
+                        <div class="cell">설비종합효율</div>
+                        <div class="cell">진행률</div>
+                        <div class="cell">비고</div>
+                    </div>
+                    <div class="row header1">
+                        <input id="selectAllCheckbox" class="check-cell1" type="checkbox">
+                        <div class="cell">JVD10A423B</div>
+                        <div class="cell">조립1팀</div>
+                        <div class="cell">9.3</div>
+                        <div class="cell">90.5</div>
+                        <div class="cell">77.1</div>
+                        <div class="cell">57.7</div>
+                        <div class="cell">66.4</div>
+                        <div class="cell">33.3</div>
+                        <div class="cell">-</div>
+                    </div>
+                </div>
+                <div id="행모델" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-header">
+                            <h2>수정</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <span class="label">작업코드:</span>
+                                <input type="text" id="modal작업코드Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">공정:</span>
+                                <select id="modal공정Input">
+                                    <option value="" selected disabled hidden>선택해주세요</option>
+                                    <option value="자재팀">자재팀</option>
+                                    <option value="조립1팀">조립1팀</option>
+                                    <option value="조립2팀">조립2팀</option>
+                                    <option value="혁명1팀">혁명1팀</option>
+                                    <option value="혁명2팀">혁명2팀</option>
+                                    <option value="후처리팀">후처리팀</option>
+                                    <option value="포장1팀">포장1팀</option>
+                                    <option value="포장2팀">포장2팀</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <span class="label">불량률:</span>
+                                <input type="number" id="modal불량률Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">양품률:</span>
+                                <input type="number" id="modal양품률Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">시간가동률:</span>
+                                <input type="number" id="modal시간가동률Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">성능가동률:</span>
+                                <input type="number" id="modal성능가동률Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">설비종합효율:</span>
+                                <input type="number" id="modal설비종합효율Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">진행률:</span>
+                                <input type="number" id="modal진행률Input">
+                            </div>
+                            <div class="row">
+                                <span class="label">비고:</span>
+                                <input type="text" id="modal비고Input">
+                            </div>
+                        </div>
+                        <button id="업데이트버튼">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------ 스크립트 ------------------------------------- -->
+    <script>
+
+        $(document).ready(function () {
+            $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+            $('.cate .menu .subopen').click(function () {
+                var $this = $(this);
+                var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+                var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+                if ($this.hasClass('active')) {
+                    // 현재 열려있는 ul 숨기기
+                    $currentUl.slideUp('fast');
+                    $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                    $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+                } else {
+                    // 모든 .menu에서 active 클래스 제거
+                    $('.cate .menu').removeClass('active');
+                    // 모든 ul 숨기기
+                    $('.cate ul').slideUp('fast');
+
+                    // 클릭된 항목의 ul 보이기
+                    $currentUl.slideDown('fast');
+                    $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                    $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+                }
+            })
+        });
+
+        window.onload = function () {
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));
+            let decodedDataJson = JSON.parse(decodedData);
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+        }
+        document.getElementById('추가버튼').addEventListener('click', function () {
+            let 새행 = document.createElement('div');
+            새행.classList.add('row', '추가행');
+
+            새행.innerHTML = `
+                        <input class="check-cell" type="checkbox">
+                        <div class="cell"><input type="text" placeholder="-"></div>
+                        <div class="cell">
+                            <select>
+                                <option value="자재팀">자재팀</option>
+                                <option value="조립1팀">조립1팀</option>
+                                <option value="조립2팀">조립2팀</option>
+                                <option value="혁명1팀">혁명1팀</option>
+                                <option value="혁명2팀">혁명2팀</option>
+                                <option value="후처리팀">후처리팀</option>
+                                <option value="포장1팀">포장1팀</option>
+                                <option value="포장2팀">포장2팀</option>
+                            </select>
+                        </div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="number" placeholder="-"></div>
+                        <div class="cell"><input type="text" placeholder="-"></div>
+                        `;
+
+            let employeeTable = document.querySelector('.행테이블');
+            employeeTable.appendChild(새행);
+            syncHeaderCheckbox();
+        });
+
+
+        // 저장 버튼 클릭 이벤트 처리 
+        document.getElementById('저장버튼').addEventListener('click', function () {
+            let 새행s = document.querySelectorAll('.추가행');
+
+            새행s.forEach(function (새행) {
+                console.log(새행.querySelector('.cell:nth-child(1)'));
+                let 작업코드 = 새행.querySelector('.cell:nth-child(2) input').value;
+                let 공정 = 새행.querySelector('.cell:nth-child(3) select').value;
+                let 불량률 = 새행.querySelector('.cell:nth-child(4) input').value;
+                let 양품률 = 새행.querySelector('.cell:nth-child(5) input').value;
+                let 시간가동률 = 새행.querySelector('.cell:nth-child(6) input').value;
+                let 성능가동률 = 새행.querySelector('.cell:nth-child(7) input').value;
+                let 설비종합효율 = 새행.querySelector('.cell:nth-child(8) input').value;
+                let 진행률 = 새행.querySelector('.cell:nth-child(9) input').value;
+                let 비고 = 새행.querySelector('.cell:nth-child(10) input').value;
+
+                if (!작업코드 | !공정 | !불량률 | !양품률 | !시간가동률 | !성능가동률 | !설비종합효율 | !진행률) {
+                    alert("필수 요소 입력");
+                }
+                else {
+                    let newTableEntry = document.createElement('div');
+                    newTableEntry.classList.add('row');
+
+                    newTableEntry.innerHTML = `
+                        <input class="check-cell" type="checkbox">
+                        <div class="cell">${작업코드}</div>
+                        <div class="cell">${공정}</div>
+                        <div class="cell">${불량률}</div>
+                        <div class="cell">${양품률}</div>
+                        <div class="cell">${시간가동률}</div>
+                        <div class="cell">${성능가동률}</div>
+                        <div class="cell">${설비종합효율}</div>
+                        <div class="cell">${진행률}</div>
+                        <div class="cell">${비고}</div>
+                        `;
+
+                    let employeeTable = document.querySelector('.행테이블');
+                    employeeTable.appendChild(newTableEntry);
+
+                    // 새로 추가한 행은 삭제
+                    새행.remove();
+
+                    // 새로 추가된 직원에 대해서도 더블 클릭 시 모달 처리
+
+                    let cells = newTableEntry.querySelectorAll('.cell');
+                    cells.forEach(function (cell) {
+                        cell.addEventListener('dblclick', function () {
+                            populateModalForEdit(cells);
+                        })
+                    })
+                    syncHeaderCheckbox();
+                    alert('저장되었습니다.');
+                }
+            });
+
+        });
+
+        // 헤더 체크박스와 모든 직원 체크박스 동기화 함수
+        function syncHeaderCheckbox() {
+            let headerCheckbox = document.getElementById('selectAllCheckbox');
+            let checkboxes = document.querySelectorAll('.check-cell');
+
+            headerCheckbox.addEventListener('click', function () {
+                checkboxes.forEach(function (checkbox, index) {
+                    if (index > 0) {
+                        checkbox.checked = headerCheckbox.checked;
+                    }
+                });
+            });
+            checkboxes.forEach(function (checkbox, index) {
+                checkbox.addEventListener('click', function () {
+                    if (index === 0 && !checkbox.checked) {
+                        headerCheckbox.checked = false;
+                    } else {
+                        let allChecked = true;
+                        for (let i = 1; i < checkboxes.length; i++) {
+                            if (!checkboxes[i].checked) {
+                                allChecked = false;
+                                break;
+                            }
+                        }
+                        headerCheckbox.checked = allChecked;
+                    }
+                });
+            });
+
+        }
+
+        // 헤더 체크박스 클릭 시 모든 직원 체크박스 선택 및 해제
+        document.getElementById('selectAllCheckbox').addEventListener('click', function () {
+            let checkboxes = document.querySelectorAll('.check-cell');
+            checkboxes.forEach(function (checkbox, index) {
+                checkbox.checked = document.getElementById('selectAllCheckbox').checked;
+            });
+        });
+
+        document.getElementById('삭제버튼').addEventListener('click', function () {
+            let rowsToDelete = document.querySelectorAll('.row input.check-cell:checked');
+
+            if (rowsToDelete.length === 0) {
+                alert('삭제할 행을 선택해주세요.');
+                return;
+            }
+
+            // 확인 메시지 띄우기
+            if (confirm('선택한 행을 삭제하시겠습니까?')) {
+                rowsToDelete.forEach(function (row) {
+                    if (!row.parentElement.classList.contains('header')) {
+                        row.parentElement.remove();
+                    }
+                });
+            }
+        });
+        syncHeaderCheckbox();
+
+        // 모달 관련 스크립트
+        let modal = document.getElementById('행모델');
+        let 닫기버튼 = document.querySelector('.close');
+
+        닫기버튼.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+
+        // 모달 수정 ------------------------------------------------------------------
+        function populateModalForEdit(cells) {
+            document.getElementById('modal작업코드Input').value = cells[0].textContent;
+            document.getElementById('modal공정Input').value = cells[1].textContent;
+            document.getElementById('modal불량률Input').value = cells[2].textContent;
+            document.getElementById('modal양품률Input').value = cells[3].textContent;
+            document.getElementById('modal시간가동률Input').value = cells[4].textContent;
+            document.getElementById('modal성능가동률Input').value = cells[5].textContent;
+            document.getElementById('modal설비종합효율Input').value = cells[6].textContent;
+            document.getElementById('modal진행률Input').value = cells[7].textContent;
+            document.getElementById('modal비고Input').value = cells[8].textContent;
+            modal.style.display = 'block';
+
+            editingRow = cells[0].closest('.row');
+
+        }
+
+        // 저장 버튼 클릭 이벤트 처리
+        document.getElementById('업데이트버튼').addEventListener('click', function () {
+
+            let 작업코드 = document.getElementById('modal작업코드Input').value;
+            let 공정 = document.getElementById('modal공정Input').value;
+            let 불량품 = document.getElementById('modal불량률Input').value;
+            let 양품률 = document.getElementById('modal양품률Input').value;
+            let 시간가동률 = document.getElementById('modal시간가동률Input').value;
+            let 성능가동률 = document.getElementById('modal성능가동률Input').value;
+            let 설비종합효율 = document.getElementById('modal설비종합효율Input').value;
+            let 진행률 = document.getElementById('modal진행률Input').value;
+            let 비고 = document.getElementById('modal비고Input').value;
+
+            editingRow.querySelector('.cell:nth-child(2)').textContent = 작업코드;
+            editingRow.querySelector('.cell:nth-child(3)').textContent = 공정;
+            editingRow.querySelector('.cell:nth-child(4)').textContent = 불량품;
+            editingRow.querySelector('.cell:nth-child(5)').textContent = 양품률;
+            editingRow.querySelector('.cell:nth-child(6)').textContent = 시간가동률;
+            editingRow.querySelector('.cell:nth-child(7)').textContent = 성능가동률;
+            editingRow.querySelector('.cell:nth-child(8)').textContent = 설비종합효율;
+            editingRow.querySelector('.cell:nth-child(9)').textContent = 진행률;
+            editingRow.querySelector('.cell:nth-child(10)').textContent = 비고;
+
+            // 모달 닫기
+            document.getElementById('행모델').style.display = 'none';
+            alert("저장되었습니다.");
+        });
+
+        // 행을 더블 클릭하여 직원 정보 편집
+        let rows = document.querySelectorAll('.row:not(.header)');
+        rows.forEach(function (row) {
+            let cells = row.querySelectorAll(".cell");
+            cells.forEach(function (cell) {
+                cell.addEventListener('dblclick', function () {
+                    populateModalForEdit(cells);
+                })
+            })
+        });
+        닫기버튼.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        ////////////// 검색 기능 //////////////////
+        document.getElementById('검색버튼').addEventListener('click', function () {
+            let searchText = document.getElementById('searchInput').value.trim().toLowerCase();
+            let rows = document.querySelectorAll('.행테이블 .row:not(.header)');
+
+            rows.forEach(function (row) {
+                let cells = row.querySelectorAll('.cell');
+                let found = false;
+                cells.forEach(function (cell, index) {
+                    if (cell.textContent.toLowerCase().includes(searchText)) {
+                        found = true;
+                    }
+                });
+                if (found) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        //검색 input에서 엔터키 누르면 검색 버튼이 눌리게
+        document.querySelector('#searchInput').addEventListener('keyup', function () {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.querySelector('#검색버튼').click();
+            }
+        })
+    </script>
+</body>
+
+</html>

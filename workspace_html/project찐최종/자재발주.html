@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자재발주</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        .cell input {
+            width: 100%;
+        }
+
+        /* -------------------------------------------------------------- */
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+
+        }
+
+        /* ------------------------------------------- */
+
+        .button-container {
+            text-align: right;
+            /* margin-bottom: 20px; */
+            margin: 20px;
+        }
+
+        /* 버튼 스타일 */
+        .button-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 전체 테이블 스타일 */
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            display: inline-table;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .cell {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-left: 1px solid #ddd;
+        }
+
+
+        /* 첫 번째 행(테이블 헤더) 스타일 */
+        .header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .rightBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        .rightBtn button {
+            font-size: 18px;
+            padding: 10 20px;
+        }
+
+        .new-employee {
+            background-color: #f9f9f9;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        /* -------------------------------------------- 더블 클릭 했을 시 css ------------------------------------------- */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-body .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .modal-body .row .label {
+            font-weight: bold;
+            width: 120px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mainmain">
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 456</p>
+                            <p id="username" style="color: white;">사용자 : 현준수</p>
+                        </div>
+                    </div>
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                        height: 30px;
+                                                                        position: relative;
+                                                                        left: 320px;
+                                                                        bottom: 75px;
+                                                                        border-radius: 1em;
+                                                                        border: 1px solid gray;">
+                </div>
+            </div>
+        </header>
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">계획</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="발주.html">발주</a></li>
+                        <li><a href="계획수립.html">계획 수립</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서.html">작업지시서</a></li>
+                        <li><a href="업무절차.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황.html">진행 현황</a></li>
+                        <li><a href="출하현황.html">출하 현황</a></li>
+                        <li><a href="작업가동률.html">작업가동률</a></li>
+                        <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="자재발주.html">재고 발주</a></li>
+                        <li><a href="재고현황.html">재고 현황</a></li>
+                        <li><a href="반출입대장.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">인사관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="인사관리.html">인사조회</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항.html">공지사항</a></li>
+                        <li><a href="건의사항.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ----------------------------------아코디언끝---------------------------------- -->
+
+            <div id="mainsel" style="width: 79%; ">
+
+                <div class="asdasd">
+                    <div style=" width: 200px; height: 30px; padding: 27px;">발주</div>
+                </div>
+
+                <!-- 9. 인사 관리
+            - 직원 표시
+            - 직원 추가,삭제,수정
+            직원 정보(이름,직급,부서,전화번호,주소,입사일)
+    -->
+                <div class="button-container">
+                    <button id="addEmployeeBtn">부품 추가</button>
+                    <button id="deleteEmployeeBtn">부품 삭제</button>
+                </div>
+
+                <div class="employee-table">
+                    <div class="row header">
+                        <input id="selectAllCheckbox" class="check-cell" type="checkbox">
+                        <!--  헤더쪽에 있는 체크박스를 누르면 전체 취소 및 전체 체크를 하기 위한 id를 따로 줌 -->
+                        <div class="cell">부품 코드</div>
+                        <div class="cell">주문 일시</div>
+                        <div class="cell">부품명</div>
+                        <div class="cell">거래처</div>
+                        <div class="cell">갯수</div>
+                        <div class="cell">단가</div>
+                        <div class="cell">수용가</div>
+                        <div class="cell">입고 후 재고량</div>
+                    </div>
+                    <div class="row header1">
+                        <input id="selectAllCheckbox" class="check-cell" type="checkbox">
+                        <!--  헤더쪽에 있는 체크박스를 누르면 전체 취소 및 전체 체크를 하기 위한 id를 따로 줌 -->
+                        <div class="cell">A001</div>
+                        <div class="cell">2024.04.02</div>
+                        <div class="cell">PCB</div>
+                        <div class="cell">SOS Company</div>
+                        <div class="cell">500</div>
+                        <div class="cell">300</div>
+                        <div class="cell">제1창고</div>
+                        <div class="cell">1500</div>
+                    </div>
+                </div>
+
+                <div class="totalprice-table">
+                    <div class="row header">
+                        <!--  헤더쪽에 있는 체크박스를 누르면 전체 취소 및 전체 체크를 하기 위한 id를 따로 줌 -->
+                        <div class="cell">총 가격</div>
+                        <div class="cell" id="totalprice">123,456</div>
+                    </div>
+                    <div class="row header">
+                        <!--  헤더쪽에 있는 체크박스를 누르면 전체 취소 및 전체 체크를 하기 위한 id를 따로 줌 -->
+                        <div class="cell">총 갯수</div>
+                        <div class="cell" id="totalcount">150</div>
+                    </div>
+                </div>
+
+                <div style="float: right;">
+                    <input type="button" value="발주" id="order">
+                </div>
+
+                <div id="employeeModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-header">
+                            <h2>정보 수정</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <span class="label">부품 코드:</span>
+                                <select id="modalmaterialCodeInput">
+                                    <option value="" selected disabled hidden>선택해주세요</option>
+                                    <option value="C001">C001:본체</option>
+                                    <option value="C002">C002:전원공급장치</option>
+                                    <option value="C003">C003:데이터기록장치</option>
+                                    <option value="C004">C004:센서모듈</option>
+                                    <option value="C005">C005:배터리</option>
+                                    <option value="C006">C006:PCB</option>
+                                    <option value="C007">C007:연결케이블</option>
+                                    <option value="C008">C008:케이스</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <span class="label">주문 일시:</span>
+                                <input type="date" id="modalDateInput">
+                            </div>
+                            <div class="row">
+                                <span class="label">부품명:</span>
+                                <select id="modalmaterialNameInput">
+                                    <option value="" selected disabled hidden>선택해주세요</option>
+                                    <option value="본체">본체</option>
+                                    <option value="전원공급장치">전원공급장치</option>
+                                    <option value="데이터기록장치">데이터기록장치</option>
+                                    <option value="센서모듈">센서모듈</option>
+                                    <option value="배터리">배터리</option>
+                                    <option value="PCB">PCB</option>
+                                    <option value="연결케이블">연결케이블</option>
+                                    <option value="케이스">케이스</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <span class="label">거래처:</span>
+                                <input type="text" id="modalSonimInput">
+                            </div>
+                            <div class="row">
+                                <span class="label">갯수:</span>
+                                <input type="text" id="modalvaluedateInput">
+                            </div>
+                            <div class="row">
+                                <span class="label">단가:</span>
+                                <input type="text" id="modalpriceInput">
+                            </div>
+                            <div class="row">
+                                <span class="label">수용가:</span>
+                                <input type="text" id="modallocationInput">
+                            </div>
+                            <div class="row">
+                                <span class="label">입고 후 재고량:</span>
+                                <input type="text" id="modalvalueInput">
+                            </div>
+                        </div>
+                        <button id="saveEmployeeBtn">저장</button>
+                    </div>
+                </div>
+
+                <div id="ModalEdit" class="modal">
+                    <div class="modal-content">
+                        <span class="close2">&times;</span>
+                        <div class="modal-header">
+                            <h2>정보 수정</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <span class="label">부품 코드:</span>
+                                <select id="modalmaterialCodeInput2">
+                                    <option value="" selected disabled hidden>선택해주세요</option>
+                                    <option value="C001">C001:본체</option>
+                                    <option value="C002">C002:전원공급장치</option>
+                                    <option value="C003">C003:데이터기록장치</option>
+                                    <option value="C004">C004:센서모듈</option>
+                                    <option value="C005">C005:배터리</option>
+                                    <option value="C006">C006:PCB</option>
+                                    <option value="C007">C007:연결케이블</option>
+                                    <option value="C008">C008:케이스</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <span class="label">주문 일시:</span>
+                                <input type="date" id="modalDateInput2">
+                            </div>
+                            <div class="row">
+                                <span class="label">부품명:</span>
+                                <select id="modalmaterialNameInput2">
+                                    <option value="" selected disabled hidden>선택해주세요</option>
+                                    <option value="본체">본체</option>
+                                    <option value="전원공급장치">전원공급장치</option>
+                                    <option value="데이터기록장치">데이터기록장치</option>
+                                    <option value="센서모듈">센서모듈</option>
+                                    <option value="배터리">배터리</option>
+                                    <option value="PCB">PCB</option>
+                                    <option value="연결케이블">연결케이블</option>
+                                    <option value="케이스">케이스</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <span class="label">거래처:</span>
+                                <input type="text" id="modalSonimInput2">
+                            </div>
+                            <div class="row">
+                                <span class="label">갯수:</span>
+                                <input type="text" id="modalvaluedateInput2">
+                            </div>
+                            <div class="row">
+                                <span class="label">단가:</span>
+                                <input type="text" id="modalpriceInput2">
+                            </div>
+                            <div class="row">
+                                <span class="label">수용가:</span>
+                                <input type="text" id="modallocationInput2">
+                            </div>
+                            <div class="row">
+                                <span class="label">입고 후 재고량:</span>
+                                <input type="text" id="modalvalueInput2">
+                            </div>
+                        </div>
+                        <button id="updateEmployeeBtn">수정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- --------------------------- script ------------------------------------------------ -->
+    <script>
+
+        $(document).ready(function () {
+            $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+            $('.cate .menu .subopen').click(function () {
+                var $this = $(this);
+                var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+                var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+                if ($this.hasClass('active')) {
+                    // 현재 열려있는 ul 숨기기
+                    $currentUl.slideUp('fast');
+                    $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                    $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+                } else {
+                    // 모든 .menu에서 active 클래스 제거
+                    $('.cate .menu').removeClass('active');
+                    // 모든 ul 숨기기
+                    $('.cate ul').slideUp('fast');
+
+                    // 클릭된 항목의 ul 보이기
+                    $currentUl.slideDown('fast');
+                    $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                    $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+                }
+            })
+        });
+
+        window.onload = function () {
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            });
+        };
+
+        let modal = document.getElementById('employeeModal');
+        let ModalEdit = document.getElementById('ModalEdit');
+        let closeBtn = document.querySelector('.close');
+        let closeBtn2 = document.querySelector('.close2');
+        let orderbtn = document.querySelector('#order');
+
+
+        closeBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        closeBtn2.addEventListener('click', function () {
+            ModalEdit.style.display = 'none';
+        });
+
+        orderbtn.addEventListener('click', function () {
+            let rows = document.querySelectorAll('.row');
+            rows.forEach(function (row) {
+                if (!row.classList.contains('header')) { // 헤더부분은 제외
+                    row.remove(); // 선택된 행 삭제
+                }
+            });
+            alert("주문되었습니다.")
+
+        })
+
+        window.addEventListener('click', function (event) {//모달 화면에서 밖에를 눌러서 나가게 하기
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+            if (event.target === ModalEdit) {
+                ModalEdit.style.display = 'none';
+            }
+        });
+
+        // ------------------------------------ 인사관리 -----------------------------------------------
+        document.getElementById('addEmployeeBtn').addEventListener('click', function () {    // -----------여기부터 
+            modal.style.display = 'block';
+        });
+
+
+
+        // 저장 버튼 클릭 이벤트 처리 
+        document.getElementById('saveEmployeeBtn').addEventListener('click', function () {            // :::::::::::::::: 여기부터 저장버튼 클릭이벤트 ::::::::::::::::
+            let materialCode = document.getElementById("modalmaterialCodeInput").value;
+            let Date = document.getElementById('modalDateInput').value;
+            let materialName = document.getElementById('modalmaterialNameInput').value;
+            let Sonim = document.getElementById('modalSonimInput').value;
+            let valuedate = document.getElementById('modalvaluedateInput').value;
+            let price = document.getElementById('modalpriceInput').value;
+            let location = document.getElementById('modallocationInput').value;
+            let value = document.getElementById('modalvalueInput').value;
+
+            let newTableEntry = document.createElement('div');
+            newTableEntry.classList.add('row');
+
+            newTableEntry.innerHTML = `
+                    <input class="check-cell" type="checkbox">
+                    <div class="cell">${materialCode}</div>
+                    <div class="cell">${Date}</div>
+                    <div class="cell">${materialName}</div>
+                    <div class="cell">${Sonim}</div>
+                    <div class="cell">${valuedate}</div>
+                    <div class="cell">${price}</div>
+                    <div class="cell">${location}</div>
+                    <div class="cell">${value}</div>
+                    `;
+
+            let employeeTable = document.querySelector('.employee-table');
+            employeeTable.appendChild(newTableEntry);
+
+            document.getElementById('modalmaterialCodeInput').value = "";
+            document.getElementById('modalDateInput').value = "";
+            document.getElementById('modalmaterialNameInput').value = "";
+            document.getElementById('modalSonimInput').value = "";
+            document.getElementById('modalvaluedateInput').value = "";
+            document.getElementById('modalpriceInput').value = "";
+            document.getElementById('modallocationInput').value = "";
+            document.getElementById('modalvalueInput').value = "";
+
+            let cells = newTableEntry.querySelectorAll('.cell');
+            cells.forEach(function (cell) {
+                cell.addEventListener('dblclick', function () {
+                    populateModalForEdit(cells);
+                })
+            })
+            syncHeaderCheckbox();
+        });
+
+        // 헤더 체크박스와 모든 직원 체크박스 동기화 함수
+        function syncHeaderCheckbox() {
+            let headerCheckbox = document.getElementById('selectAllCheckbox');
+            let checkboxes = document.querySelectorAll('.check-cell');
+
+            headerCheckbox.addEventListener('click', function () {   // selectAllCheckbox 는 체크박스 첫번째 헤더 체크박스 // 클릭이벤트 처리
+                checkboxes.forEach(function (checkbox, index) {             // check-cell class를 가진 체크박스 요소들을 반복하여 처리 
+                    if (index > 0) {                                        // 조건을 사용 첫번째 요소(헤더 체크박스) 는 제외 , 
+                        checkbox.checked = headerCheckbox.checked;       // 나머지 체크박스의 checked 상태를 selectAllCheckbox.checked 값으로 설정
+                    }
+                });
+            });
+
+
+            checkboxes.forEach(function (checkbox, index) {         // 각 체크박스의 클릭 이벤트 
+                checkbox.addEventListener('click', function () {
+                    if (index === 0 && !checkbox.checked) {
+                        headerCheckbox.checked = false;          // 첫 번째 체크박스(헤더 체크박스)가 선택 해제될 때 selectAllCheckbox.checked 값을 false로 설정
+                    } else {
+                        let allChecked = true;                          // else 
+                        for (let i = 1; i < checkboxes.length; i++) {   // 체크박스를 1부터 시작해서 하나씩 돌면서 체크가 되어 있는지 확인
+                            if (!checkboxes[i].checked) {               // 체크가 안 되어 있다면 false
+                                allChecked = false;
+                                break;
+                            }
+                        }
+                        headerCheckbox.checked = allChecked;         // false 값을 줌 
+                    }
+                });
+            });
+
+        }
+
+
+
+        // 헤더 체크박스 클릭 시 모든 직원 체크박스 선택 및 해제
+        document.getElementById('selectAllCheckbox').addEventListener('click', function () {
+            let checkboxes = document.querySelectorAll('.check-cell');
+            checkboxes.forEach(function (checkbox, index) {
+                checkbox.checked = document.getElementById('selectAllCheckbox').checked;
+            });
+        });
+
+
+        document.getElementById('deleteEmployeeBtn').addEventListener('click', function () {
+            // 삭제 버튼 클릭 시 처리
+            let rowsToDelete = document.querySelectorAll('.row input.check-cell:checked');
+
+            if (rowsToDelete.length === 0) {    // 삭제 버튼을 클릭했을 때, 선택된 직원 정보를 삭제하기 전에 삭제할 대상이 있는지를 검사하는 역할
+                alert('삭제할 직원을 선택해주세요.');
+                return;
+            }
+
+            // 확인 메시지 띄우기
+            if (confirm('선택한 직원 정보를 삭제하시겠습니까?')) {
+                rowsToDelete.forEach(function (row) {
+                    if (!row.parentElement.classList.contains('header')) { // 헤더부분은 제외
+                        row.parentElement.remove(); // 선택된 행 삭제
+                    }
+                });
+            }
+        });
+
+        /////////////////////////////////////////////////////////////// checkbox ////////////////////////////////////////////////////////////////////
+        syncHeaderCheckbox();
+
+
+
+        // 모달 수정 ------------------------------------------------------------------
+
+        // 직원 정보 편집을 위해 모달에 데이터를 채우는 함수
+        function populateModalForEdit(cells) {
+            document.getElementById('modalmaterialCodeInput2').value = cells[0].textContent;
+            document.getElementById('modalDateInput2').value = cells[1].textContent;
+            document.getElementById('modalmaterialNameInput2').value = cells[2].textContent;
+            document.getElementById('modalSonimInput2').value = cells[3].textContent;
+            document.getElementById('modalvaluedateInput2').value = cells[4].textContent;
+            document.getElementById('modalpriceInput2').value = cells[5].textContent;
+            document.getElementById('modallocationInput2').value = cells[6].textContent;
+            document.getElementById('modalvalueInput2').value = cells[7].textContent;
+            ModalEdit.style.display = 'block';
+
+            editingRow = cells[0].closest('.row');//cells에 가장 가까운 row에 접근하는 코드
+
+        }
+
+        // 저장 버튼 클릭 이벤트 처리
+        document.getElementById('updateEmployeeBtn').addEventListener('click', function () {
+
+            // 모달에서 입력된 값 가져오기
+            let meterialCode = document.getElementById('modalmaterialCodeInput2').value;
+            let Date = document.getElementById('modalDateInput2').value;
+            let materialName = document.getElementById('modalmaterialNameInput2').value;
+            let Sonim = document.getElementById('modalSonimInput2').value;
+            let valuedate = document.getElementById('modalvaluedateInput2').value;
+            let price = document.getElementById('modalpriceInput2').value;
+            let location = document.getElementById('modallocationInput2').value;
+            let value = document.getElementById('modalvalueInput2').value;
+
+            // 수정된 데이터로 행 업데이트
+            editingRow.querySelector('.cell:nth-child(2)').textContent = meterialCode;
+            editingRow.querySelector('.cell:nth-child(3)').textContent = Date;
+            editingRow.querySelector('.cell:nth-child(4)').textContent = materialName;
+            editingRow.querySelector('.cell:nth-child(5)').textContent = Sonim;
+            editingRow.querySelector('.cell:nth-child(6)').textContent = valuedate;
+            editingRow.querySelector('.cell:nth-child(7)').textContent = price;
+            editingRow.querySelector('.cell:nth-child(8)').textContent = location;
+            editingRow.querySelector('.cell:nth-child(9)').textContent = value;
+
+            // 모달 닫기
+            document.getElementById('ModalEdit').style.display = 'none';
+
+        });
+
+        // 행을 더블 클릭하여 직원 정보 편집
+        let rows = document.querySelectorAll('.row:not(.header)');
+        rows.forEach(function (row) {
+            let cells = row.querySelectorAll(".cell");
+            cells.forEach(function (cell) {
+                cell.addEventListener('dblclick', function () {
+                    populateModalForEdit(cells);
+                })
+            })
+        });
+
+
+        // 모달 닫기 버튼 이벤트 리스너
+        closeBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+    </script>
+    <!-- ---------------------------------------- script ---------------------------------------- -->
+</body>
+
+
+</html>

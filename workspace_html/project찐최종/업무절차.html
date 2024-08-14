@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업무절차</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .write {
+            text-align: right;
+        }
+
+        #modalll {
+            display: none;
+        }
+
+        /* -------------------------------------------------------------- */
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mainmain">
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 456</p>
+                            <p id="username" style="color: white;">사용자 : 현준수</p>
+                        </div>
+                    </div>
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                        height: 30px;
+                                                                        position: relative;
+                                                                        left: 320px;
+                                                                        bottom: 75px;
+                                                                        border-radius: 1em;
+                                                                        border: 1px solid gray;">
+                </div>
+            </div>
+        </header>
+
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">계획</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="발주.html">발주</a></li>
+                        <li><a href="계획수립.html">계획 수립</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서.html">작업지시서</a></li>
+                        <li><a href="업무절차.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황.html">진행 현황</a></li>
+                        <li><a href="출하현황.html">출하 현황</a></li>
+                        <li><a href="작업가동률.html">작업가동률</a></li>
+                        <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="자재발주.html">재고 발주</a></li>
+                        <li><a href="재고현황.html">재고 현황</a></li>
+                        <li><a href="반출입대장.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">인사관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="인사관리.html">인사조회</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항.html">공지사항</a></li>
+                        <li><a href="건의사항.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- -------------------------------아코디언 끝 ------------------------------------------ -->
+            <div id="mainsel" style="width: 79%; ">
+
+                <div class="asdasd">
+                    <div style=" width: 200px; height: 30px; padding: 27px;">업무절차</div>
+                </div>
+
+                <div>
+                    <table style="text-align: center;">
+                        <tr>
+                            <th style="text-align: center; font-size: 30px;" colspan="5">업무별 절차 메뉴얼</th>
+                        </tr>
+                        <tr>
+                            <td>번호</td>
+                            <td width="500px">제목</td>
+                            <td>작성자</td>
+                            <td>작성일</td>
+                            <td>첨부파일</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td width="500px">생산팀 메뉴얼 (20240724 개정)</td>
+                            <td>김지형</td>
+                            <td>2024.07.31</td>
+                            <td style="color: blueviolet;">
+                                <!-- <a href="생산팀pdf.html" class="btnopen">Manual.pdf</a> -->
+                                <span class="btnopen">Manual.pdf</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td width="500px">품질관리팀 메뉴얼 (20240628 개정)</td>
+                            <td>김지형</td>
+                            <td>2023.07.04</td>
+                            <td style="color: blueviolet;">
+                                <span class="btnopen">Manual.pdf</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+            $('.cate .menu .subopen').click(function () {
+                var $this = $(this);
+                var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+                var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+                if ($this.hasClass('active')) {
+                    // 현재 열려있는 ul 숨기기
+                    $currentUl.slideUp('fast');
+                    $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                    $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+                } else {
+                    // 모든 .menu에서 active 클래스 제거
+                    $('.cate .menu').removeClass('active');
+                    // 모든 ul 숨기기
+                    $('.cate ul').slideUp('fast');
+
+                    // 클릭된 항목의 ul 보이기
+                    $currentUl.slideDown('fast');
+                    $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                    $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+                }
+            })
+        });
+
+        window.onload = function () {
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+        };
+
+        let btnopen = document.querySelectorAll('.btnopen');
+
+
+        btnopen[0].onclick = function () {
+            let password = prompt('암호를 입력해주세요');
+
+            if (password === '6287') {
+                window.location.href = "생산팀pdf.html";
+            } else {
+                alert('비밀번호를 확인해주세요.');
+            }
+        }
+
+        btnopen[1].onclick = function () {
+            let password = prompt('암호를 입력해주세요');
+
+            if (password === '6287') {
+                window.location.href = "생산팀pdf.html";
+            } else {
+                alert('비밀번호를 확인해주세요.');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

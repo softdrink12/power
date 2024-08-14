@@ -1,0 +1,242 @@
+body, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;   	    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+#header{
+    font-weight: bold;
+    background-color:  rgb(218, 231, 255);
+    font-size: 30px;
+    color: white;
+}
+.wrapper{
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+}
+#search {
+    width: 30%;
+    height: 50px;
+    margin-left: 30px;
+}
+#userinfo {
+    position: relative;
+    left: 50px;;
+    width: 200px;
+    height: 150px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 150px;
+    font-size: 12px;
+}
+#selectmenu {
+    margin-left: 30px;
+    border: 1px solid black;
+    text-align: center;
+    width: 15%;
+}
+
+#mainsel {
+    display: inline-block;
+    width: 80%;
+    height: 720px;
+    /* border: 1px solid blue; */
+}
+.title{
+    height: 150px;
+    width: 200px;
+    margin-left: 30px;
+}
+.cate {
+    width: 250px;
+    position: relative;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    border-color: #000;
+}
+
+.cate:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.cate .menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    background:  rgb(218, 231, 255);
+    height: 80px;
+}
+
+.cate .menu .menulink {
+    display: block;
+    color: black;
+    text-decoration: none;
+    width: 70%;
+    padding-left: 15px;
+    line-height: 80px;
+}
+
+.cate .menu .subopen {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    transform: rotate(45deg);
+}
+
+.cate ul li {
+    padding: 5px 10px;
+}
+
+.cate ul li:first-child {
+    padding-top: 20px;
+}
+
+.cate ul li:last-child {
+    padding-bottom: 20px;
+}
+
+.accordion {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.button-container {
+    text-align: right;
+    /* margin-bottom: 20px; */
+    margin: 20px;
+}
+
+/* 버튼 스타일 */
+.button-container button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+/* 전체 테이블 스타일 */
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    display: inline-table;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.cell {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-left: 1px solid #ddd;
+}
+
+
+/* 첫 번째 행(테이블 헤더) 스타일 */
+.header {
+    font-weight: bold;
+    background-color: #f2f2f2;
+}
+
+.rightBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: right;
+}
+
+.rightBtn button {
+    font-size: 18px;
+    padding: 10 20px;
+}
+
+.new-employee {
+    background-color: #f9f9f9;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+/* -------------------------------------------- 더블 클릭 했을 시 css ------------------------------------------- */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-body {
+    padding-bottom: 20px;
+}
+
+.modal-body .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.modal-body .row .label {
+    font-weight: bold;
+    width: 120px;
+}

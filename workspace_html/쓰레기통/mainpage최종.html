@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAIN</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .write {
+            text-align: right;
+        }
+
+        .xxx {
+            position: absolute;
+            right: 160px;
+            top: -11px;
+        }
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body , html{
+            width: 100%;
+            height: 100%;
+        }
+        
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="mainmain">
+
+    <header id="header">
+        <div class="wrapper">
+
+            <!-- <div id="selectmenu"> -->
+            <!-- <p id="qwer"></p> -->
+            <!-- </div> -->
+            <!-- <input id="search" type="text"><input style="width: 30px; height: 54px;" type="button"> -->
+            <div class="xxx">
+                <div id="userinfo">
+                    <p id="userpmo"></p>
+                    <p id="username"></p>
+                </div>
+            
+
+            <input type="button" id="logout" name="Logout" value="Logout" style=" width: 60px; 
+                                                                                height: 30px;
+                                                                                position: relative;
+                                                                                left: 252px;
+                                                                                bottom: 67px;">
+            </div>
+            <!-- <div class="yyy">
+            <a href="mainpage최종.html"><img class="title"
+                    src="/Users/hyeonjunsu/Downloads/55a4b71c-9bf5-43fa-b2b0-705be1761ed1.png" alt=""></a>
+            </div> -->
+
+        </div>
+    </header>
+    <div class="accordion">
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">계획</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="발주.html">발주</a></li>
+                <li><a href="계획수립.html">계획 수립</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">작업지시</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="작업지시서.html">작업지시서</a></li>
+                <li><a href="업무절차.html">업무 절차</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">작업수행</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="진행현황.html">진행 현황</a></li>
+                <li><a href="출하현황.html">출하 현황</a></li>
+                <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">자재관리</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="자재발주.html">재고 발주</a></li>
+                <li><a href="재고현황.html">재고 현황</a></li>
+                <li><a href="반출입대장.html">반출입 대장</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">인사관리</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="인사관리.html">인사조회</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">BOM</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                <li><a href="코드관리페이지.html">코드 관리</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">공지사항</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="공지사항.html">공지사항</a></li>
+                <li><a href="건의사항.html">건의사항</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="mainsel" style="width: 79%;  border: 1px solid black;">
+        <div class="sel" style="width: 100%; height: 75%; ">
+            <canvas id="line-chart" style="width: 50%; height: 50%;"></canvas>
+        </div>
+    </div>
+
+</div>
+
+    <script>
+        window.onload = function () {
+            (function ($) {
+                $('.cate ul').hide();//버튼 누르기 전에 ul 리스트들 숨기기
+                $('.cate .menu .subopen').click(function () {
+                    if ($(this).hasClass('active')) {
+                        $(this).parent().next().slideUp('fast');
+                        $(this).removeClass('active');
+                    }
+                    else {
+                        $('.accordion').find('.active').parent().next().slideUp('fast');
+                        $('.accordion').find('.active').removeClass('active');
+                        $(this).parent().next().slideDown('fast');
+                        $(this).addClass('active');
+                    }
+                });
+            })(jQuery);
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+        };
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: [1 + '월', 2 + '월', 3 + '월', 4 + '월', 5 + '월', 6 + '월', 7 + '월', 8 + '월', 9 + '월', 10 + '월', 11 + '월', 12 + '월'],
+                    datasets: [{
+                        data: [50, 40, 60, 90, 50, 60, 70, 80, 69, 100, 110, 120],
+                        label: "월별 매출 동향",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: '월별 매출 동향'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

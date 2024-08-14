@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 글 보기</title>
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* 폰트 변경 */
+            line-height: 1.6;
+            /* 가독성용 줄 여유분 확인 */
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .post {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post h2 {
+            font-size: 1.4em;
+            color: #333;
+        }
+
+        .post .meta {
+            color: #666;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .post .content {
+            font-size: 1em;
+            color: #444;
+        }
+
+        .comment {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment .meta {
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .comment .content {
+            font-size: 0.9em;
+            color: #555;
+            /* display: flex; */
+            /* flex 사용시 내용이랑 text 칸이 합쳐짐 */
+            /* align-items: center; */
+        }
+
+        .comment .content input[type="text"] {
+            width: 70%;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .comment .content button {
+            padding: 5px 10px;
+            cursor: pointer;
+            /* 버튼에 효과 */
+        }
+
+        
+
+        .comment.reply {
+            background-color: #eaeaea;
+            /* 배경색 */
+            margin-left: 20px;
+            /* 대댓글인 만큼 들여쓰기 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="post">
+        <h2>안녕하세요 ~ ㅎㅎ</h2>
+        <div class="meta">
+            작성일: 2024년 7월 22일
+        </div>
+        <div class="content">
+            <p>안녕하세연 ~ ㅎㅎ</p>
+            <p>26살 남자 김승환입니다</p>
+            <p>26살 남자 김승환입니다</p>
+            <p>26살 남자 김승환입니다</p>
+            <p>26살 남자 김승환입니다</p>
+            <p>26살 남자 김승환입니다</p>
+            <p>26살 남자 김승환입니다</p>
+        </div>
+    </div>
+
+    <div class="displayComment" style="display: block;">
+        <div class="comment">
+            <div class="meta">
+                <h2>작성자: 닉네임 | 작성일: 2024년 7월 23일</h2>
+            </div>
+            <div class="content">
+                <input type="text" placeholder="게시글에 대한 답글 내용을 여기에 작성합니다." style="width: 70%;">
+                <button id="commentBtn">댓글달기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('commentBtn').addEventListener('click', function () {
+            // 입력된 답글 내용 가져오기 
+            let commentText = document.querySelector('.comment input[type="text"]').value;
+
+            // 새로운 답글 요소를 생성 
+            let newComment = document.createElement('div');
+            newComment.classList.add('comment');
+
+            newComment.innerHTML = `
+                    <div class="meta">
+                        작성자: 닉네임 | 작성일: ${getCurrentDate()}
+                    </div>
+                    <div class="content">
+                        ${commentText}
+                        <br>
+                        <input type="text" placeholder="게시글에 대한 답글 내용을 여기에 작성합니다." style="width: 70%;">
+                        <button class="recommentBtn">댓글달기</button>   
+                    </div>
+                `;
+
+            // 게시판 글 아래 답글 추가 
+            let commentContent = document.querySelector('.comment');
+            commentContent.appendChild(newComment);
+
+            // 입력창을 초기화 하고 
+            document.querySelector('.comment input[type="text"]').value = '';
+
+            // 클래스 이름으로 이벤트 리스너 추가
+
+            newComment.querySelector('.recommentBtn').addEventListener('click', function () {
+                let recommentText = newComment.querySelector('input[type="text"]').value;
+
+                if (recommentText) {
+                    let newreComment = document.createElement('div');
+                    newreComment.classList.add('comment', 'reply');
+
+                    newreComment.innerHTML = `
+                            <div class="meta">
+                                작성자: 닉네임 | 작성일: ${getCurrentDate()}
+                            </div>
+                            <div class="content">
+                                ${recommentText}
+                                <br>
+                            </div>
+                        `;
+
+
+                    newComment.appendChild(newreComment);
+                    newComment.querySelector('input[type="text"]').value = '';
+
+
+                }
+            });
+
+
+
+        });
+        // 현재시간 및 날짜 반환 
+        function getCurrentDate() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            let date = now.getDate();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            return `${year}년 ${month}월 ${date}일 ${hours}시 ${minutes}분`;
+        }
+    </script>
+</body>
+
+</html>

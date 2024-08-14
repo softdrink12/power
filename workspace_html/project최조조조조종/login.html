@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js"></script>
+    <title>Login</title>
+    <style>
+        #p1 {
+            border: 1px solid black;
+            width: 1250px;
+            height: 850px;
+        }
+
+        #p2 {
+            border: 3px solid black;
+            width: 700px;
+            height: 400px;
+            margin: 225px auto;
+        }
+
+        #id {
+            width: 200px;
+            height: 30px;
+            margin-left: 140px;
+            margin-top: 60px;
+        }
+
+        #pw {
+            width: 200px;
+            height: 30px;
+            margin-left: 140px;
+        }
+
+        #login {
+            width: 100px;
+            height: 100px;
+            margin-left: 100px;
+            /* position: absolute; */
+            /* text-align: center; */
+            position: relative;
+            top: -30px;
+        }
+
+        .c4 {
+            margin-top: 30px;
+            margin-left: 60px;
+        }
+
+        .c5 {
+            text-align: right;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="p1">
+        <div id="p2">
+            <div>
+                <h1 class="c4">DMZ</h1>
+            </div>
+            <form action="/project복사본/mainpage최종.html" method="get"
+                id="form">
+                <input type="text" id="id" placeholder="PMO" name="PMO" required> <br>
+                <input type="password" id="pw" placeholder="Pw" name="PW" required>
+                <input type="submit" id="login" value="Login" name="login">
+            </form>
+            <br>
+            <br>
+            <br>
+
+            <div>
+                <h4 class="c5">v.24.7.18</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+
+        window.onload = function () {
+            document.querySelector('#login').addEventListener('click', function (event) {
+
+                let id = document.querySelector("#id").value;
+                let pw = document.querySelector("#pw").value;
+
+                if (id == 123 && pw == 9056) { // 일반 사원
+                    ac = {
+                        PMO: `사원번호: ${id}`,
+                        이름: "사용자: 김지형"
+                    };
+                    let ac1 = JSON.stringify(ac)
+                    let data = ac1;
+
+                    setTimeout(function () {
+                        let encodedData = encodeURIComponent(data)
+                        window.location.href = `mainpage최종.html?param1=${encodedData}`; // 일반사원용 메인페이지로
+                    }, 0);
+                    // alert("일반사원 로그인 성공")
+                    console.log("일반사원 로그인 성공")
+                } else if (id == 456 && pw == 6287) {    // 관리자 
+                    ad = {
+                        PMO: `사원번호: ${id}`,
+                        이름: "사용자: 현준수"
+                    };
+                    let ad1 = JSON.stringify(ad)
+
+                    setTimeout(function () {
+                        let encodedData = encodeURIComponent(ad1)
+                        window.location.href = `mainpage최종.html?param1=${encodedData}` // 관리자용 메인페이지로
+                    }, 0)
+                    // alert("관리자 로그인 성공")
+                    console.log("관리자 로그인 성공")
+                } else {
+                    alert("아이디 또는 비밀번호를 확인해주세요")
+                    setTimeout(function () {
+                        window.location.href = "login.html";
+                    }, 0)
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>

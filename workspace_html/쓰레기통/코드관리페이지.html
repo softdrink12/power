@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAINPAGE</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .write {
+            text-align: right;
+        }
+
+        .search-button {
+            margin: 10px;
+            text-align: right;
+        }
+
+        .highlight {
+            background-color: white;
+            color: black;
+        }
+
+        /* 클릭시 배경색 변경 */
+        .highlight.clicked {
+            background-color: #7ab8cc;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header id="header">
+        <div class="wrapper">
+            <a href="mainpage최종.html"><img class="title" src="" alt=""></a>
+            <div id="selectmenu">
+                <p id="qwer"></p>
+            </div>
+            <input id="search" type="text"><input style="width: 30px; height: 54px;" type="button">
+            <div id="userinfo">
+                <p id="userpmo"></p>
+                <p id="username"></p>
+            </div>
+            <input type="button" id="logout" name="Logout" value="Logout"
+                style="width: 60px; height: 30px; margin-left: 50px;">
+        </div>
+    </header>
+    <div class="accordion">
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">계획</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="발주.html">발주</a></li>
+                <li><a href="계획수립.html">계획 수립</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">작업지시</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="작업지시서.html">작업지시서</a></li>
+                <li><a href="업무절차.html">업무 절차</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">작업수행</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="진행현황.html">진행 현황</a></li>
+                <li><a href="출하현황.html">출하 현황</a></li>
+                <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">자재관리</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="자재발주.html">재고 발주</a></li>
+                <li><a href="재고현황.html">재고 현황</a></li>
+                <li><a href="반출입대장.html">반출입 대장</a></li>    
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">인사관리</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="인사관리.html">인사조회</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">BOM</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="인사관리.html">제품 유형별 BOM</a></li>
+                <li><a href="코드관리페이지.html">코드 관리</a></li>
+            </ul>
+        </div>
+        <div class="cate">
+            <span class="menu">
+                <a href="#" class="menulink">공지사항</a>
+                <a href="javascript:void(0);" class="subopen"></a>
+            </span>
+            <ul>
+                <li><a href="공지사항.html">공지사항</a></li>
+                <li><a href="건의사항.html">건의사항</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="mainsel" style="width: 79%;  border: 1px solid black;">
+        <div class="search-button">
+            <input type="search" placeholder="검색할 내용을 적어주세요.">
+            <input type="button" value="검색">
+            <hr>
+            <input id="svBtn" type="button" value="저장">
+            <input id="addBtn" type="button" value="추가">
+            <input id="changeBtn" type="button" value="수정">
+        </div>
+        <div>
+            <table id="myTable">
+                <tr>
+                    <th>CODE</th>
+                    <th>이름</th>
+                    <th>정보</th>
+                    <th>비고</th>
+                </tr>
+                <tr class="table-row">
+                    <td>C001</td>
+                    <td>본체</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C002</td>
+                    <td>전원공급장치</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C003</td>
+                    <td>데이터기록장치</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C004</td>
+                    <td>센서모듈</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+
+                <tr class="table-row">
+                    <td>C005</td>
+                    <td>배터리</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C006</td>
+                    <td>PCB</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C007</td>
+                    <td>연결케이블</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>C008</td>
+                    <td>케이스</td>
+                    <td>BOM</td>
+                    <td>비고</td>
+                </tr>
+
+
+                <tr class="table-row">
+                    <td>B100****</td>
+                    <td>주문코드</td>
+                    <td>주문정보(날짜,수량,거래처 등)</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>ER01</td>
+                    <td>에러코드</td>
+                    <td>에러 발생 시</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>OP01</td>
+                    <td>가동</td>
+                    <td>가동라인</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>NOP01</td>
+                    <td>비가동</td>
+                    <td>비가동라인</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>A1</td>
+                    <td>A형 제품</td>
+                    <td>제품 종류</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>B1</td>
+                    <td>B형 제품</td>
+                    <td>제품 종류</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>AL</td>
+                    <td>A형 라인</td>
+                    <td>라인 종류</td>
+                    <td>비고</td>
+                </tr>
+                <tr class="table-row">
+                    <td>BL</td>
+                    <td>B형 라인</td>
+                    <td>라인 종류</td>
+                    <td>비고</td>
+                </tr>
+
+
+
+
+
+            </table>
+        </div>
+
+    </div>
+
+
+    <script>
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let rows = document.querySelectorAll('.table-row');
+
+            rows.forEach(function (row) {
+                row.addEventListener('click', function () {
+                    // 모든 행에서 highlight 클래스를 제거
+                    rows.forEach(function (row) {
+                        row.classList.remove('highlight', 'clicked');
+                    });
+
+                    // 클릭한 행에 highlight 클래스 추가
+                    this.classList.add('highlight', 'clicked');
+
+                });
+            });
+
+            let CBT = document.getElementById('changeBtn');
+            let ABT = document.getElementById('addBtn');
+            let SBT = document.getElementById('svBtn');
+            let high;
+
+            CBT.addEventListener('click', function () {
+                if (!document.querySelector('.highlight')) {
+                    console.log("선택된 row가 없다")
+                }
+                else {
+                    let a = document.querySelector('.highlight').querySelectorAll('td');
+                    high = document.querySelector('.highlight');
+                    a.forEach(function (td) {
+                        td.innerHTML = `
+                        <input class="cell" type="text" value=${td.textContent}>
+                    `
+                    });
+                    console.log('수정');
+                }
+            });
+
+
+            ABT.addEventListener('click', function () {
+                let newRow = myTable.insertRow(); // 새로운 행 추가
+                newRow.classList.add('table-row');
+
+                // 각 셀에 입력 필드 추가
+                for (let i = 0; i < 4; i++) {
+                    let newCell = newRow.insertCell();
+                    let input = document.createElement('input');
+                    input.type = 'text';
+                    newCell.appendChild(input);
+                }
+
+                console.log('새로운 행을 추가했습니다.');
+            });
+
+
+
+            SBT.addEventListener('click', function () {
+
+                if (!document.querySelector('.highlight')) {
+                    console.log("저장 확인용")
+                }
+                else {
+                    let a = document.querySelector('.highlight').querySelectorAll('td');
+                    a.forEach(function (td) {
+                        if (!td.querySelector('.cell')) {
+                            console.log("input이 없음")
+                        }
+                        else {
+                            td.textContent = td.querySelector('.cell').value;
+
+                        }
+                    })
+                }
+                
+                
+
+            });
+        });
+
+
+
+
+        window.onload = function () {
+            (function ($) {
+                $('.cate ul').hide();//버튼 누르기 전에 ul 리스트들 숨기기
+                $('.cate .menu .subopen').click(function () {
+                    if ($(this).hasClass('active')) {
+                        $(this).parent().next().slideUp('slow');
+                        $(this).removeClass('active');
+                    }
+                    else {
+                        $('.accordion').find('.active').parent().next().slideUp('slow');
+                        $('.accordion').find('.active').removeClass('active');
+                        $(this).parent().next().slideDown('slow');
+                        $(this).addClass('active');
+                    }
+                });
+            })(jQuery);
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+            // 초기 페이지네이션 버튼 생성 및 첫 페이지 게시글 표시
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

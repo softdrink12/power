@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+            /* bom테이블 영향 */
+        }
+
+        th,
+        td {
+            padding: 10px;
+            /* bom테이블 영향 */
+            /* text-align: left; */
+            /* overflow: scroll; */
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .write {
+            text-align: right;
+        }
+
+        .changebutton {
+            /* bom테이블 영향 */
+            margin: 20px;
+            text-align: right;
+
+        }
+
+        .highlight {
+            background-color: white;
+            color: black;
+        }
+
+        /* 클릭시 배경색 변경 */
+        .highlight.clicked {
+            background-color: #7ab8cc;
+            color: white;
+        }
+
+        .cell {
+            width: 100%;
+        }
+
+        .search-container {
+            text-align: right;
+            margin: 20px;
+        }
+
+        /* ---------------------------------------------------------------------------------------------------------- */
+
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+
+        }
+        .x11 {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        /* 버튼 스타일 */
+        .x11 {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .x11 button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="mainmain">
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 123</p>
+                            <p id="username" style="color: white;">사용자 : 김승환</p>
+                        </div>
+                    </div>
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                                    height: 30px;
+                                                                                    position: relative;
+                                                                                    left: 320px;
+                                                                                    bottom: 75px;
+                                                                                    border-radius: 1em;
+                                                                                    border: 1px solid gray;">
+                </div>
+            </div>
+        </header>
+
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서User.html">작업지시서</a></li>
+                        <li><a href="업무절차User.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu" >
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황User.html">진행 현황</a></li>
+                        <li><a href="출하현황User.html">출하 현황</a></li>
+                        <li><a href="작업가동률User.html">작업가동률</a></li>
+                        <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="재고현황User.html">재고 현황</a></li>
+                        <li><a href="반출입대장User.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOMUser.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지User.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항User.html">공지사항</a></li>
+                        <li><a href="건의사항User.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- -----------------------------------------아코디언 끝 --------------------------------- -->
+            <div id="mainsel" style="overflow: scroll;">
+
+                <div class="asdasd">
+                    <div style=" width: 100px; height: 30px; padding: 27px;">BOM</div>
+                </div>
+
+                <div class="sel" style="width: 100%; height: 75%;">
+                    <div class="main-div">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="검색할 내용을 입력하세요...">
+                            <button id="searchBtn">검색</button>
+                        </div>
+                        
+                        <table id="myTable">
+                            <tr class="table-row">
+                                <td style="background-image: url(https://lh5.googleusercontent.com/proxy/Y89t6YMYthv9f4u9Gkx93zsjKAdpEN3MYVrE_r4_dBipSdeNLozvC5OShEjOnnlsmoJlBRxacSrfkqG5iKJr9yc-zL1kUlyxHD2VxQu2nmxhUIGIkA); background-size: cover; background-position: center center;"
+                                    ;></td>
+                                <td>C001 </td>
+                                <td>종류</td>
+                                <td>A제조사</td>
+                                <td>본체</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDoryVuLckc2tEV4-VWWYdPC2BRgvV3wFJ9A&s); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C002 </td>
+                                <td>종류</td>
+                                <td>B제조사</td>
+                                <td>전원공급장치</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsv1DL8X-nDVjTNsxmc-LHUzP_w_wFs2UJ-g&s); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C003</td>
+                                <td>종류</td>
+                                <td>C제조사</td>
+                                <td>데이터기록장치</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://t1.daumcdn.net/cfile/tistory/184D093D504692FD23); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C004</td>
+                                <td>종류</td>
+                                <td>F제조사</td>
+                                <td>센서모듈</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/1913095913/B.jpg?262000000); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C005</td>
+                                <td>종류</td>
+                                <td>E제조사</td>
+                                <td>배터리 </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://hanwoojin.cafe24.com/wp-content/uploads/2018/06/dbaseX-review-07.jpg); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C006</td>
+                                <td>종류</td>
+                                <td>F제조사</td>
+                                <td>PCB</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/1550035994/B.jpg?316000000); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C007</td>
+                                <td>종류</td>
+                                <td>G제조사</td>
+                                <td>연결케이블</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi7xWr-mqoGI1bMiniYfmB3ikCIkkvOH95dA&s); background-size: cover;
+                        background-position: center center;" ;></td>
+                                <td>C008</td>
+                                <td>종류</td>
+                                <td>H제조사</td>
+                                <td>케이스</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- 여기까지 bom테이블 영향 -->
+        </div>
+    </div>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+            $('.cate .menu .subopen').click(function () {
+                var $this = $(this);
+                var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+                var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+                if ($this.hasClass('active')) {
+                    // 현재 열려있는 ul 숨기기
+                    $currentUl.slideUp('fast');
+                    $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                    $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+                } else {
+                    // 모든 .menu에서 active 클래스 제거
+                    $('.cate .menu').removeClass('active');
+                    // 모든 ul 숨기기
+                    $('.cate ul').slideUp('fast');
+
+                    // 클릭된 항목의 ul 보이기
+                    $currentUl.slideDown('fast');
+                    $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                    $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+                }
+            })
+
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let rows = document.querySelectorAll('.table-row');
+
+
+            rows.forEach(function (row) {
+                row.addEventListener('click', function () {
+                    let flag = true;
+                    if (this.classList[1] == 'highlight') {
+                        flag = false;
+                    }
+                    // 모든 행에서 highlight 클래스를 제거
+                    rows.forEach(function (row) {
+                        row.classList.remove('highlight', 'clicked');
+                    });
+
+
+                    // 클릭한 행에 highlight 클래스 추가
+                    if (flag) {
+                        this.classList.add('highlight', 'clicked');
+                    }
+
+
+
+                    console.log("추가");
+                    // high=document.querySelector('.highlight.clicked');
+                    // console.log(high);
+                    // high.addEventListener('click',function(){
+                    //     row.classList.remove('highlight', 'clicked');
+                    // })
+                    // high="";
+                });
+            });
+
+            let CBT = document.getElementById('changeBtn');
+            let ABT = document.getElementById('addBtn');
+            let SBT = document.getElementById('svBtn');
+            let high;
+
+
+            CBT.addEventListener('click', function () {
+                if (!document.querySelector('.highlight')) {
+                    console.log("선택된 row가 없다")
+                }
+                else {
+                    let a = document.querySelector('.highlight').querySelectorAll('td:not(:first-child)');
+                    high = document.querySelector('.highlight');
+                    a.forEach(function (td) {
+                        if (!td.querySelector('.cell')) {
+                            td.innerHTML = `
+                                <input class="cell" type="text" value=${td.textContent}>
+                                `
+                        }
+                    });
+                }
+            });
+
+            ABT.addEventListener('click', function () {
+                let newRow = myTable.insertRow(); // 새로운 행 추가
+                newRow.classList.add('table-row');
+
+                // 각 셀에 입력 필드 추가
+                for (let i = 0; i < 5; i++) {
+                    let newCell = newRow.insertCell();
+                    let input = document.createElement('input');
+                    input.className = "cell"
+                    input.type = 'text';
+                    newCell.appendChild(input);
+                }
+
+                console.log('새로운 행을 추가했습니다.');
+
+
+
+                console.log('추가');
+
+            });
+
+            SBT.addEventListener('click', function () {
+
+                if (!document.querySelector('.highlight')) {
+                    console.log("저장 확인용")
+                }
+                else {
+                    let a = document.querySelector('.highlight').querySelectorAll('td:not(:first-child)');
+                    a.forEach(function (td) {
+                        if (!td.querySelector('.cell')) {
+                            console.log("input이 없음")
+                        }
+                        else {
+                            td.textContent = td.querySelector('.cell').value;
+                        }
+                    })
+                }
+                let b = myTable.querySelectorAll('.table-row');
+                b.forEach(function (c) {
+                    let d = c.querySelectorAll('td');
+                    d.forEach(function (e) {
+                        if (e.querySelector('.cell')) {
+                            if(e.querySelector('.cell').value) {
+                                e.textContent = e.querySelector('.cell').value;
+                            }
+                            else{
+                                alert("비어 있는 셀이 있습니다. 모두 채워주세요")
+                            }
+                        }
+                    })
+                })
+            });
+        });
+
+        //////////////////검색////////////////////////////////
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let searchInput = document.getElementById('searchInput');
+            let searchBtn = document.getElementById('searchBtn');
+            let table = document.getElementById('myTable');
+            let rows = table.querySelectorAll('.table-row');
+
+            // 검색 버튼 클릭 시
+            searchBtn.addEventListener('click', function () {
+                let searchText = searchInput.value.toLowerCase().trim();
+                rows.forEach(function (row) {
+                    let cells = row.getElementsByTagName('td');
+                    let rowabc = false;
+                    for (let i = 0; i < cells.length; i++) {
+                        let cellText = cells[i].textContent.toLowerCase();
+                        if (cellText.includes(searchText)) {
+                            rowabc = true;
+                            break;
+                        }
+                    }
+                    if (rowabc) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Enter 키 눌렀을 때도 검색 실행
+            searchInput.addEventListener('keyup', function (event) {
+                if (event.keyCode === 13) { // Enter key
+                    searchBtn.click(); // 검색 버튼 클릭 이벤트 호출
+                }
+            });
+        });
+
+        //////////////////검색////////////////////////////////
+
+
+        window.onload = function () {
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+            // 초기 페이지네이션 버튼 생성 및 첫 페이지 게시글 표시
+
+        }
+
+    </script>
+</body>
+
+</html>

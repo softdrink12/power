@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <style>
+        table {
+            margin: auto;
+            width: 700px;
+            border-radius: 5px;
+            border-collapse: collapse;
+            border-top: none;
+            text-align: center;
+        }
+
+        .hii {
+            background-color: rgb(218, 231, 255);
+            text-align: center;
+        }
+
+        .table td,
+        .table th {
+            border-bottom: 1px solid lightgray;
+            height: 30px;
+        }
+
+        .num {
+            width: 50px;
+        }
+
+        .title {
+            width: 500px;
+        }
+
+        .body {
+            text-align: left;
+        }
+
+        .btnnn {
+            width: 100px;
+            height: 40px;
+            border: 0;
+            outline: 1px solid rgb(68, 136, 244);
+            border-radius: 5px;
+            background-color: rgb(164, 199, 255);
+        }
+
+        .btnnn:active {
+            width: 100px;
+            height: 40px;
+            border: 0;
+            border-radius: 5px;
+            outline: 1px solid rgb(27, 76, 155);
+            background-color: rgb(68, 136, 244);
+        }
+
+        .write {
+            text-align: right;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div style="border: 1px solid red;">
+        <table class="table">
+            <tr>
+                <td colspan="4">
+                    <h2>게시판</h2>
+                </td>
+            </tr>
+            <tr class="hii">
+                <td class="num">번호</td>
+                <td class="title">제목</td>
+                <td>작성날짜</td>
+            </tr>
+            <tr class="hii2">
+
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div class="write">
+        <a href="글쓰기.html">
+            <input type="button" class="btnnn" value="글쓰기">
+        </a>
+    </div>
+
+    <script>
+        // 현재시간 및 날짜 반환 
+        function getCurrentDate() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            let date = now.getDate();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            return `${year}년 ${month}월 ${date}일`;
+        }
+
+        let midinfo = localStorage.getItem("info");
+
+        midinfo = JSON.parse(midinfo);
+        addinfo = {
+            id: 0,
+            title: midinfo.midhi,
+            writer: midinfo.midna,
+            date: getCurrentDate()
+        };
+
+        let postsHtml = '';
+        postsHtml +=
+            `<td>${addinfo.id}</td>
+            <td>${addinfo.title}</td>
+            <td>${addinfo.writer}</td>
+            <td>${getCurrentDate()}</td>
+            `;
+
+        document.querySelector('.hii2').innerHTML = postsHtml;
+
+        console.log(postsHtml);
+    </script>
+</body>
+
+</html>

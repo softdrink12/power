@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAINPAGE</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .mst {
+            float: right;
+        }
+
+        .b11,
+        .b12 {
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .pa {
+            border: 1px groove rgb(209, 208, 208);
+            width: 30%;
+            height: 30%;
+            display: inline-block;
+            background-color: lightgray;
+            border-radius: 3px;
+
+        }
+
+        .chbox {
+            vertical-align: 40px;
+        }
+
+        #divpa {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .inpa {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .pac {
+            width: 90%;
+            height: 100%;
+            display: inline-block;
+        }
+
+        .pacc {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .print {
+            /* border: 1px solid red; */
+            width: 50px;
+            height: 50px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+            max-width: 650px;
+            overflow: scroll;
+            height: 500px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-div {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal_2 {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content_2 {
+            position: relative;
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+            max-width: 650px;
+            overflow: scroll;
+            height: 500px;
+        }
+
+        .close_2 {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close_2:hover,
+        .close_2:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-div_2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .imgprint {
+            cursor: pointer;
+        }
+
+        /* -------------------------------------------------------------- */
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mainmain">
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 456</p>
+                            <p id="username" style="color: white;">사용자 : 현준수</p>
+                        </div>
+                    </div>
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                        height: 30px;
+                                                                        position: relative;
+                                                                        left: 320px;
+                                                                        bottom: 75px;
+                                                                        border-radius: 1em;
+                                                                        border: 1px solid gray;">
+                </div>
+            </div>
+        </header>
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">계획</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="발주.html">발주</a></li>
+                        <li><a href="계획수립.html">계획 수립</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서.html">작업지시서</a></li>
+                        <li><a href="업무절차.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황.html">진행 현황</a></li>
+                        <li><a href="출하현황.html">출하 현황</a></li>
+                        <li><a href="작업가동률.html">작업가동률</a></li>
+                        <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="자재발주.html">재고 발주</a></li>
+                        <li><a href="재고현황.html">재고 현황</a></li>
+                        <li><a href="반출입대장.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">인사관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="인사관리.html">인사조회</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항.html">공지사항</a></li>
+                        <li><a href="건의사항.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+<!-- ------------------------------아코디언 끝------------------------------------- -->
+            <div id="mainsel" style="width: 79%; overflow: visible;">
+
+                <div class="asdasd">
+                    <div style=" width: 200px; height: 30px; padding: 27px;">작업지시서</div>
+                </div>
+
+                <div style="text-align: right; margin-top: 10px; margin-bottom: -20px; padding-right: 30px; margin-top: 30px;">
+                    <input id="addbtn" class="inpa" type="button" value="생성">
+                    <input class="inpa" type="button" value="수정">
+                    <input class="inpa" type="button" value="삭제">
+                </div>
+
+                <div id="divpa" style="width: 100%; height: 80%; margin-bottom: 50px;">
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>KJH10A44023B</h2>
+                            <h4>B110240712A</h4>
+                            <div class="pacc">
+                                <p>C006, C007</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>KJH10A44023B</h2>
+                            <h4>B110240712A</h4>
+                            <div class="pacc">
+                                <p>C003, C004, C005</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>KJH10A44023B</h2>
+                            <h4>B110240712A</h4>
+                            <div class="pacc">
+                                <p>C001, C002, C008</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>HJS20A44023A</h2>
+                            <h4>B120240718B</h4>
+                            <div class="pacc">
+                                <p>C006, C007</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>HJS20A44023BA</h2>
+                            <h4>B120240718B</h4>
+                            <div class="pacc">
+                                <p>C003, C004, C005</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa">
+                        <input class="chbox" type="checkbox">
+                        <div class="pac">
+                            <h2>HJS20A44023A</h2>
+                            <h4>B120240718B</h4>
+                            <div class="pacc">
+                                <p>C001, C002, C008</p>
+                                <div class="print">
+                                    <img class="imgprint" style="width: 50px; height: 50px;"
+                                        src="https://cdn.icon-icons.com/icons2/1392/PNG/512/printer_96620.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div id="daylist" style="text-align: center; margin-bottom: 5px;"></div>
+                            <div id="modal-content-divs">
+                                <h1>KJH10A44023B</h1>
+                                <div class="modal-div">
+                                    <h3>주문번호</h3> B110240712A
+                                </div>
+                                <div class="modal-div">
+                                    <h3>BOM</h3> C006, C007
+                                </div>
+                                <div class="modal-div">
+                                    <h3>양호수량</h3> 0
+                                </div>
+                                <div class="modal-div">
+                                    <h3>목표수량</h3> 100EA
+                                </div>
+                                <div class="modal-div">
+                                    <h3>생산계획기간</h3> 24.07.12 ~ 24.07.26
+                                </div>
+                                <div class="modal-div">
+                                    <h3>상태</h3> 대기중
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal_2" class="modal_2">
+                        <div class="modal-content_2">
+                            <span class="close_2">&times;</span>
+                            <div id="daylist_2" style="text-align: center; margin-bottom: 5px;"></div>
+                            <div id="modal-content-divs_2">
+                                <h2>&lt;작업 지시서 생성&gt;</h2>
+                                <div class="modal-div_">
+                                    *필수
+                                </div>
+                                <div class="modal-div_2">
+                                    <h3>*작업 지시서 번호</h3> <input type="text">
+                                </div>
+                                <div class="modal-div_2">
+                                    <h3>*BOM</h3> <input type="text">
+                                </div>
+                                <div class="modal-div_2">
+                                    <h3>*목표수량</h3> <input type="text">
+                                </div>
+                                <div class="modal-div_2">
+                                    <h3>예정시작 날짜</h3> <input type="date">
+                                    <h3>예정종료 날짜</h3> <input type="date">
+                                </div>
+                                <div class="modal-div_2">
+                                    <h3>완료날짜</h3> <input type="text" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="modal-div_3" style="text-align: right;">
+                                    <input class="inpa" type="button" value="생성"> <input class="inpa" type="button"
+                                        value="취소">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+            $('.cate .menu .subopen').click(function () {
+                var $this = $(this);
+                var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+                var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+                if ($this.hasClass('active')) {
+                    // 현재 열려있는 ul 숨기기
+                    $currentUl.slideUp('fast');
+                    $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                    $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+                } else {
+                    // 모든 .menu에서 active 클래스 제거
+                    $('.cate .menu').removeClass('active');
+                    // 모든 ul 숨기기
+                    $('.cate ul').slideUp('fast');
+
+                    // 클릭된 항목의 ul 보이기
+                    $currentUl.slideDown('fast');
+                    $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                    $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+                }
+            })
+        });
+
+        window.onload = function () {
+
+            let userpmo = document.getElementById('userpmo');
+            let username = document.getElementById('username');
+            let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+                .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+            let decodedDataJson = JSON.parse(decodedData);//json화
+
+            // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+            // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+            // 로그아웃 버튼
+            document.getElementById('logout').addEventListener('click', function () {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    alert("로그아웃 되었습니다")
+                    window.location.href = "login.html"
+                } else {
+                    alert("로그아웃 취소되었습니다")
+                }
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            let imgprint = document.querySelectorAll('.imgprint');
+            let span = document.getElementsByClassName('close')[0];
+
+            imgprint.forEach(Element => {
+
+                Element.addEventListener('click', () => {
+                    modal.style.display = 'block';
+                })
+
+                span.onclick = () => {
+                    modal.style.display = 'none';
+                };
+
+                window.onclick = (event) => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+            })
+
+        })
+
+        // document.addEventListener('DOMContentLoaded', () => {
+
+        let addbtn = document.getElementById('addbtn');
+        let span = document.getElementsByClassName('close_2')[0];
+        let modal2 = document.getElementById('modal_2');
+
+        addbtn.onclick = function () {
+            modal2.style.display = 'block';
+        }
+
+        span.onclick = function () {
+            modal2.style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target === modal2) {
+                modal2.style.display = 'none';
+            }
+        }
+
+
+        // })
+
+    </script>
+</body>
+
+</html>

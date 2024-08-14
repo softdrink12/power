@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>plz</title>
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        a {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            text-decoration-line: none;
+        }
+
+        #userinfo {
+            line-height: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        #pagination button {
+            margin: 0 4px;
+            padding: 8px 16px;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+
+        .write {
+            text-align: right;
+            margin-top: 35px;
+        }
+
+        .btnnn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .xxx {
+            position: absolute;
+            right: 180px;
+            top: -11px;
+        }
+
+        .yyy {
+            position: relative;
+            left: 500px;
+        }
+
+        .mainmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 기본 스타일 */
+        .cate .menu {
+            background-color: #ffffff;
+            /* 기본 배경색 */
+            /* padding: 10px; */
+            border: 1px solid #ccc;
+        }
+
+        /* 아코디언 항목이 활성화 되었을 때의 스타일 */
+        .cate .menu.active {
+            background-color: rgb(218, 231, 255);
+            /* 클릭된 항목의 배경색 */
+        }
+
+        .asdasd {
+            /* text-align: center; */
+
+            /* background-color: #6CA0DC; */
+            /* background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+
+            height: 80px;
+            color: black;
+            font-size: 24px;
+            border-bottom: 1px solid lightgray;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mainmain">
+
+        <header id="header">
+            <div class="wrapper">
+
+                <a href="mainpage최종.html">
+                    <div style="width: 222px; height: 100%; text-align: center;">
+                        <p style="color: white;">
+                            DMZ
+                        </p>
+                    </div>
+                </a>
+
+
+                <div class="xxx">
+                    <div id="userinfo">
+                        <div style="margin: 25px;">
+                            <p id="userpmo" style="color: white;">사원번호 : 456</p>
+                            <p id="username" style="color: white;">사용자 : 현준수</p>
+                        </div>
+                    </div>
+
+
+                    <input type="button" id="logout" name="Logout" value="Logout" style="width: 60px; 
+                                                                                        height: 30px;
+                                                                                        position: relative;
+                                                                                        left: 320px;
+                                                                                        bottom: 75px;
+                                                                                        border-radius: 1em;
+                                                                                        border: 1px solid gray;">
+                </div>
+                <!-- <div class="yyy">
+            <a href="mainpage최종.html"><img class="title"
+                    src="/Users/hyeonjunsu/Downloads/55a4b71c-9bf5-43fa-b2b0-705be1761ed1.png" alt=""></a>
+            </div> -->
+
+            </div>
+        </header>
+        <div style="width: 100%; height: 90%;">
+            <div class="accordion">
+                <div class="cate">
+                    <span class="menu" style="margin-top: 10px;">
+                        <a href="#" class="menulink">계획</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="발주.html">발주</a></li>
+                        <li><a href="계획수립.html">계획 수립</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업지시</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="작업지시서.html">작업지시서</a></li>
+                        <li><a href="업무절차.html">업무 절차</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">작업수행</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="진행현황.html">진행 현황</a></li>
+                        <li><a href="출하현황.html">출하 현황</a></li>
+                        <li><a href="작업가동률.html">작업가동률</a></li>
+                        <!-- <li><a href="인사관리.html">완료 보고</a></li> -->
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">자재관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="자재발주.html">재고 발주</a></li>
+                        <li><a href="재고현황.html">재고 현황</a></li>
+                        <li><a href="반출입대장.html">반출입 대장</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">인사관리</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="인사관리.html">인사조회</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">BOM</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="BOM.html">제품 유형별 BOM</a></li>
+                        <li><a href="코드관리페이지.html">코드 관리</a></li>
+                    </ul>
+                </div>
+                <div class="cate">
+                    <span class="menu">
+                        <a href="#" class="menulink">공지사항</a>
+                        <a href="javascript:void(0);" class="subopen"
+                            style="margin-right: 10px; width: 20px; height: 20px;"></a>
+                    </span>
+                    <ul>
+                        <li><a href="공지사항.html">공지사항</a></li>
+                        <li><a href="건의사항.html">건의사항</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- ------------------------------ 아코디언 끝 --------------------------------------- -->
+            <div id="mainsel" style="height: 94%;">
+
+                <div class="asdasd">
+                    <div style=" width: 100px; height: 30px; padding: 27px;">공지사항</div>
+                </div>
+
+                <div class="notince" style="width: 80%; height: 80%; display: inline-block; margin-left: 100px;">
+                    <div class="t1" style="width: 100%; height: 78%;">
+                        <div style="height: 515px;">
+                            <table>
+                                <!-- <tr>
+                                    <td style="text-align: center;" colspan="4">
+                                        <h2>건의사항</h2>
+                                    </td>
+                                </tr> -->
+                                <tr>
+                                    <th style="width: 50px;">번호</th>
+                                    <th>제목</th>
+                                    <th style="width: 130px;">작성자</th>
+                                    <th>작성날짜</th>
+                                </tr>
+                                <tbody id="posts">
+                                    <tr class="qwe">
+                                        <td>23</td>
+                                        <td><a href="article0.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>2</td>
+                                        <td><a href="article1.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article2.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article3.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article4.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article5.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article6.html">aaa</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article7.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article8.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article9.html">안녕하세요</a></td>
+                                        <td>456</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article10.html">안녕하세요</a></td>
+                                        <td>789</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+                                    <tr class="qwe">
+                                        <td>1</td>
+                                        <td><a href="article11.html">안녕하세요</a></td>
+                                        <td>김승환</td>
+                                        <td>2024.05.04</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pagination"></div>
+                    </div>
+                    <div class="scc">
+                        <input class="sch" type="text" name="search" placeholder="검색어를 입력하세요">
+                        <button class="sb" name="검색" value="검색">검색</button>
+                    </div>
+                    <div class="write">
+                        <a href="글쓰기.html">
+                            <input type="button" class="btnnn" value="글쓰기">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('.cate ul').hide(); // 버튼 누르기 전에 ul 리스트들 숨기기
+
+        $('.cate .menu .subopen').click(function () {
+            var $this = $(this);
+            var $menu = $this.closest('.menu'); // 클릭된 항목의 부모 .menu
+            var $currentUl = $menu.siblings('ul'); // 현재 클릭된 항목의 ul
+
+            if ($this.hasClass('active')) {
+                // 현재 열려있는 ul 숨기기
+                $currentUl.slideUp('fast');
+                $this.removeClass('active'); // 현재 버튼에서 active 클래스 제거
+                $menu.removeClass('active'); // 현재 부모 .menu에서 active 클래스 제거
+            } else {
+                // 모든 .menu에서 active 클래스 제거
+                $('.cate .menu').removeClass('active');
+                // 모든 ul 숨기기
+                $('.cate ul').slideUp('fast');
+
+                // 클릭된 항목의 ul 보이기
+                $currentUl.slideDown('fast');
+                $this.addClass('active'); // 클릭된 버튼에 active 클래스 추가
+                $menu.addClass('active'); // 클릭된 버튼의 부모 .menu에 active 클래스 추가
+            }
+        })
+
+
+    });
+
+    window.onload = function () {
+
+
+        let userpmo = document.getElementById('userpmo');
+        let username = document.getElementById('username');
+        let decodedData = decodeURIComponent(new URLSearchParams(window.location.search)
+            .get('param1'));//get 방식으로 받아온 유저 정보를 json객체로 만들기 위한 과정
+        let decodedDataJson = JSON.parse(decodedData);//json화
+
+        // userpmo.textContent = decodedDataJson[Object.keys(decodedDataJson)[0]]; // 추출 후 텍스트 수정
+        // username.textContent = decodedDataJson[Object.keys(decodedDataJson)[1]]; // 추출 후 텍스트 수정
+
+        // 로그아웃 버튼
+        document.getElementById('logout').addEventListener('click', function () {
+            if (confirm("로그아웃 하시겠습니까?")) {
+                alert("로그아웃 되었습니다")
+                window.location.href = "login.html"
+            } else {
+                alert("로그아웃 취소되었습니다")
+            }
+        })
+        // 초기 페이지네이션 버튼 생성 및 첫 페이지 게시글 표시
+        let qwe = document.querySelectorAll('.qwe');
+        qwe.forEach(function (e, index) {
+            let td = e.children;
+            let json = {
+                id: td[0].textContent,
+                title: td[1].textContent,
+                writer: td[2].textContent,
+                date: td[3].textContent
+            }
+            pts.push(json)
+        });
+        midinfo = localStorage.getItem("info");
+
+        midinfo = JSON.parse(midinfo);
+        addinfo = {
+            id: "10",
+            title: midinfo.midhi,
+            writer: midinfo.midna,
+            date: getCurrentDate()
+        };
+        pts.push(addinfo);
+        createPaginationButtons1(pts.length, postsPerPage);
+        displayPosts1();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    let qwe;
+    let pts = [];
+    let indexs = 0;
+    let content = document.getElementById('posts').innerHTML;
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(content, 'text/html');
+    let links = doc.querySelectorAll('a');
+    let hrefs = [];
+    links.forEach(link => {
+        hrefs.push(link.href);
+    });
+    const postsPerPage = 10; // 페이지당 게시글 수
+    let currentPage = 1; // 현재 페이지
+
+    // 페이지네이션 함수
+    function paginatePosts(pts, page, postsPerPage) {
+        const start = (page - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        return pts.slice(start, end);
+    }
+
+    // 페이지네이션 버튼 생성 함수
+    function createPaginationButtons1(totalPosts, postsPerPage) {//
+        const totalPages = Math.ceil(totalPosts / postsPerPage);
+        let buttons = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            buttons += `<button onclick="goToPage1(${i})">${i}</button>`;
+        }
+        document.querySelector('#pagination').innerHTML = buttons;
+    }
+
+    function createPaginationButtons2(totalPosts, postsPerPage) {
+        const totalPages = Math.ceil(totalPosts / postsPerPage);
+        let buttons = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            buttons += `<button onclick="goToPage2(${i})">${i}</button>`;
+        }
+        document.querySelector('#pagination').innerHTML = buttons;
+    }
+
+    // 페이지 이동 함수
+    function goToPage1(page) {
+        currentPage = page;
+        displayPosts1();
+    }
+    function goToPage2(page) {
+        currentPage = page;
+        displayPosts2();
+    }
+
+    // 게시글 표시 함수
+    function displayPosts1() {
+        let paginatedPosts = paginatePosts(pts, currentPage, postsPerPage);
+        let postsHtml = '';
+
+        paginatedPosts.forEach((post) => {
+            postsHtml +=
+                `<tr class=qwe>
+                    <td>${post.id}</td>
+                    <td><a href="${hrefs[indexs]}">${post.title}</td>
+                    <td>${post.writer}</td>
+                    <td>${post.date}</td>
+                </tr>`;
+
+            indexs = indexs + 1;
+        });
+        document.getElementById('posts').innerHTML = postsHtml;
+    }
+
+    function displayPosts2() {
+        let paginatedPosts = paginatePosts(septs, currentPage, postsPerPage);
+        let postsHtml = '';
+        let index = 0;
+        paginatedPosts.forEach(post => {
+            postsHtml +=
+                `<tr class=qwe>
+                    <td>${post.id}</td>
+                    <td><a href="/article${reindex[index]}.html">${post.title}</a></td>
+                    <td>${post.writer}</td>
+                    <td>${post.date}</td>
+                </tr>`;
+            console.log(reindex[index]);
+            index = index + 1;
+        });
+        document.getElementById('posts').innerHTML = postsHtml;
+    }
+
+    let septs = [];
+    let reindex = [];
+    document.querySelector('.sb').addEventListener('click', function () {
+        let searchText = document.querySelector('.sch').value.trim().toLowerCase();
+        septs = [];
+        reindex = [];
+        pts.forEach(function (row, index) {
+            let found = false;
+            if (row.title.toLowerCase().includes(searchText)) {
+                reindex.push(index);
+                septs.push(row);
+            }
+        });
+        console.log(reindex);
+        createPaginationButtons2(septs.length, postsPerPage);
+        displayPosts2();
+
+    });
+
+    //검색 input에서 엔터키 누르면 검색 버튼이 눌리게
+    document.querySelector('.sch').addEventListener('keyup', function () {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.querySelector('.sb').click();
+        }
+    })
+
+    function getCurrentDate() {
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        let date = now.getDate();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+
+        return `${year}년 ${month}월 ${date}일`;
+    }
+</script>
+</body>
+
+</html>

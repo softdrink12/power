@@ -1,0 +1,206 @@
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+#header {
+    height: 10%;
+    font-weight: bold;
+    /* background-color: #6CA0DC; */
+    font-size: 30px;
+    color: white;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+}
+
+#search {
+    width: 30%;
+    height: 50px;
+    margin-left: 30px;
+}
+
+#userinfo {
+    /* position: relative; */
+    left: 50px;
+    
+    width: 250px;
+    height: 110px;
+    border: 1px solid white;
+    text-align: center;
+    line-height: 150px;
+    font-size: 20px;
+    /* background-color: rgb(255, 255, 255); */
+    /* background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+    
+    
+    
+    
+
+}
+
+#selectmenu {
+    margin-left: 30px;
+    border: 1px solid black;
+    text-align: center;
+    width: 15%;
+}
+
+#mainsel {
+    margin-top: 9px;
+    display: inline-block;
+    width: 81%;
+    height: 88%;
+    /* border: 1px solid blue; */
+    overflow: auto;
+}
+
+.title {
+    height: 140px;
+    width: 253px;
+}
+
+.cate {
+    width: 220px;
+    position: relative;
+    /* border-style: solid; */
+    /* border-width: 1px 1px 0 1px; */
+    border-color: #000;
+}
+
+
+.cate .menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    /* background: #BCD4E6; */
+    height: 80px;
+}
+
+.cate .menu .menulink {
+    display: block;
+    color: black;
+    text-decoration: none;
+    width: 70%;
+    padding-left: 15px;
+    line-height: 80px;
+}
+
+.cate .menu .subopen {
+    position: absolute;
+    /* width: 8px; */
+    /* height: 8px; */
+    right: 15px;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    transform: rotate(45deg);
+    margin-right: 10px;
+    width: 20px; 
+    height: 20px;
+}
+
+.cate ul li {
+    padding: 5px 10px;
+}
+
+.cate ul li:first-child {
+    padding-top: 20px;
+}
+
+.cate ul li:last-child {
+    padding-bottom: 20px;
+}
+
+.accordion {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.notice {
+    display: inline-block;
+    /* vertical-align: middle; */
+}
+
+.sel {
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.table {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 70%;
+    border-collapse: collapse;
+    border-top: none;
+    /* background-color:  */
+    /* vertical-align: middle; */
+    table-layout: fixed;
+}
+
+.header {
+    background-color: rgb(218, 231, 255);
+    text-align: center;
+}
+
+.header>td {
+    height: 40px;
+}
+
+.table td,
+.table th {
+    border-bottom: 1px lightgray solid;
+    text-align: center;
+    height: 35px;
+}
+
+.btndiv {
+    text-align: right;
+}
+
+.scc {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.sch {
+    width: 250px;
+    height: 35px;
+    border: 1px groove black;
+    border-radius: 3px;
+}
+
+.sb {
+    border: 1px groove black;
+    border-radius: 3px;
+    height: 35px;
+    background-color: white;
+}
+
+.empty {
+    height: 100px;
+}
+
+.btn {
+    border: 1px groove black;
+    border-radius: 3px;
+    width: 70px;
+    height: 30px;
+    background-color: white;
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES Blackbox</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+</style>
+</head>
+<body>
+    <h1>MES Blackbox Management</h1>
+    <div id="bom">
+        <h2>BOM(Bill of Materials)</h2>
+        <ul id="bom-list"></ul>
+    </div>
+    <div id="production">
+        <h2>계획 수립</h2>
+        <ul id="production-schedule"></ul>
+    </div>
+    <div id="quality">
+        <h2>품질 관리</h2>
+        <ul id="quality-records"></ul>
+    </div>
+    <script src="script.js"></script>
+<script>
+    // BOM 클래스 정의
+class BOM {
+    constructor() {
+        this.components = [];
+    }
+
+    addComponent(code, name, quantity) {
+        const component = {
+            code: code,
+            name: name,
+            quantity: quantity
+        };
+        this.components.push(component);
+    }
+
+    getComponents() {
+        return this.components;
+    }
+}
+
+// BOM 생성 및 초기화
+const blackboxBOM = new BOM();
+blackboxBOM.addComponent('A1xxxxxxxx', '본체', 1+'개');
+blackboxBOM.addComponent('A2xxxxxxxx', '전원 공급 장치', 1+'개');
+blackboxBOM.addComponent('A3xxxxxxxx', '데이터 기록 장치', 1+'개');
+blackboxBOM.addComponent('A4xxxxxxxx', '센서 모듈', 2+'개');
+blackboxBOM.addComponent('A5xxxxxxxx', '배터리', 1+'개');
+blackboxBOM.addComponent('A6xxxxxxxx', 'PCB', 1+'개');
+blackboxBOM.addComponent('A7xxxxxxxx', '연결 케이블', 5+'개');
+blackboxBOM.addComponent('A8xxxxxxxx', '케이스', 1+'개');
+blackboxBOM.addComponent('A9xxxxxxxx', '기타 소형 부품', 20+'개');
+
+
+// BOM 출력
+function displayBOM() {
+    const bomList = document.getElementById('bom-list');
+    blackboxBOM.getComponents().forEach(component => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `
+            코드: ${component.code},
+            부품명: ${component.name}, 
+            수량: ${component.quantity}
+        `;
+        bomList.appendChild(listItem);
+    });
+}
+
+// Production Plan 클래스 정의
+class ProductionPlan {
+    constructor(bom) {
+        this.bom = bom;
+        this.schedule = [];
+    }
+
+    createSchedule(startDate, endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const dayInMs = 24 * 60 * 60 * 1000;
+        for (let date = start; date <= end; date = new Date(date.getTime() + dayInMs)) {
+            this.schedule.push({
+                date: date.toISOString().split('T')[0],
+                task: '블랙박스 제조'
+            });
+        }
+    }
+
+    getSchedule() {
+        return this.schedule;
+    }
+}
+
+// 생산 일정 생성 및 출력
+const productionPlan = new ProductionPlan(blackboxBOM);
+productionPlan.createSchedule('2024-08-01', '2024-08-10');
+
+function displayProductionPlan() {
+    const scheduleList = document.getElementById('production-schedule');
+    productionPlan.getSchedule().forEach(task => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `날짜: ${task.date}, 작업: ${task.task}`;
+        scheduleList.appendChild(listItem);
+    });
+}
+
+// Quality Control 클래스 정의
+class QualityControl {
+    constructor() {
+        this.records = [];
+    }
+
+    addRecord(component, status, remarks) {
+        const record = {
+            component: component,
+            status: status,
+            remarks: remarks
+        };
+        this.records.push(record);
+    }
+
+    getRecords() {
+        return this.records;
+    }
+}
+
+// 품질 관리 기록 추가 및 출력
+const qc = new QualityControl();
+qc.addRecord('외장 케이스', '양호', '문제 없음');
+qc.addRecord('전원 공급 장치', '불량', '전원 공급 불량');
+
+function displayQualityRecords() {
+    const recordsList = document.getElementById('quality-records');
+    qc.getRecords().forEach(record => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `부품명: ${record.component}, 상태: ${record.status}, 비고: ${record.remarks}`;
+        recordsList.appendChild(listItem);
+    });
+}
+
+// 페이지 로드 시 데이터 출력
+window.onload = function() {
+    displayBOM();
+    displayProductionPlan();
+    displayQualityRecords();
+};
+</script>
+</body>
+</html>
