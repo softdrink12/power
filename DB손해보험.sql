@@ -22,3 +22,13 @@ commit;
 select * from tbl_todo
 where tno = 2;
 
+select * from emp;
+
+select * from emp2;
+
+create table emp2
+as select * from emp;
+
+select * from emp2 where empno = empno and ename=ename;
+
+
